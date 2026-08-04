@@ -78,37 +78,37 @@
             color: var(--neon-cyan); font-weight: bold; border: 1px solid var(--neon-cyan);
             border-radius: 20px; box-shadow: 0 0 8px var(--neon-cyan); z-index: 2;
         }
+        
+        /* زدنا الـ padding السفلي ليكون 15 بدل 10 عشان ما يقص الزر */
         .shelf {
-            display: flex; overflow-x: auto; gap: 15px; padding: 20px 15px 10px 15px;
+            display: flex; overflow-x: auto; gap: 15px; padding: 20px 15px 15px 15px;
             scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--neon-pink) transparent;
         }
         .shelf::-webkit-scrollbar { height: 6px; }
         .shelf::-webkit-scrollbar-thumb { background-color: var(--neon-pink); border-radius: 10px; }
 
         /* --- Products --- */
+        /* استبدلنا الـ height الثابت بـ min-height ليحتوي الزر بالكامل */
         .product {
             flex: 0 0 120px; scroll-snap-align: center; background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 10px;
             text-align: center; transition: transform 0.2s, box-shadow 0.2s;
             display: flex; flex-direction: column; align-items: center; justify-content: space-between;
-            height: 150px; /* تم تقليل الارتفاع ليتناسب مع الأحجام الجديدة */
+            min-height: 175px; 
         }
         .product:hover { box-shadow: 0 0 12px var(--neon-pink); border-color: var(--neon-pink); }
         .product-icon { font-size: 3rem; margin-bottom: 2px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.5)); }
         
-        /* تم تصغير حجم خط الاسم */
-        .product-name { font-size: 0.75rem; font-weight: bold; line-height: 1.2; margin-bottom: 2px; }
+        .product-name { font-size: 0.75rem; font-weight: bold; line-height: 1.2; margin-bottom: 4px; }
         
-        /* تم تصغير حجم خط السعر */
-        .product-price { color: var(--neon-green); font-weight: 900; font-size: 0.8rem; text-shadow: 0 0 5px var(--neon-green); margin-bottom: 5px; }
+        .product-price { color: var(--neon-green); font-weight: 900; font-size: 0.8rem; text-shadow: 0 0 5px var(--neon-green); margin-bottom: 8px; }
         
-        /* تم تصغير حجم الزر */
         .add-to-cart-btn {
             background: linear-gradient(45deg, var(--neon-cyan), #0055ff);
             color: #fff; border: none; border-radius: 50%;
             width: 28px; height: 28px; font-size: 1.2rem; font-weight: bold;
             display: flex; justify-content: center; align-items: center; cursor: pointer;
-            box-shadow: 0 0 10px var(--neon-cyan); transition: 0.2s;
+            box-shadow: 0 0 10px var(--neon-cyan); transition: 0.2s; flex-shrink: 0;
         }
         .add-to-cart-btn:active { transform: scale(0.8); background: var(--neon-pink); box-shadow: 0 0 20px var(--neon-pink); }
 
