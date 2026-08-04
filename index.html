@@ -15,30 +15,20 @@
             --text-light: #ffffff;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Cairo', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
 
-        html { scroll-behavior: smooth; } /* التمرير الناعم */
+        html { scroll-behavior: smooth; }
 
         body {
             background: linear-gradient(to bottom, var(--bg-color), #24243e);
-            color: var(--text-light);
-            min-height: 100vh;
-            padding-bottom: 120px;
-            overflow-x: hidden;
+            color: var(--text-light); min-height: 100vh; padding-bottom: 120px; overflow-x: hidden;
         }
 
-        /* --- Start Screen (Arcade Style) --- */
+        /* --- Start Screen --- */
         #start-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 99999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 0.5s, visibility 0.5s; cursor: pointer;
+            background: #000; z-index: 99999; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; transition: opacity 0.5s, visibility 0.5s; cursor: pointer;
         }
         #start-screen.hidden { opacity: 0; visibility: hidden; }
         .start-text {
@@ -47,15 +37,11 @@
             animation: pulse-start 1s infinite alternate; margin-bottom: 20px;
         }
         .start-sub { color: var(--neon-pink); font-size: 1.2rem; text-shadow: 0 0 10px var(--neon-pink); }
-        @keyframes pulse-start {
-            from { opacity: 0.5; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1.05); }
-        }
+        @keyframes pulse-start { from { opacity: 0.5; transform: scale(0.95); } to { opacity: 1; transform: scale(1.05); } }
 
-        /* --- Header & Quick Navigation --- */
+        /* --- Header & Nav --- */
         header {
-            text-align: center; padding: 20px;
-            text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+            text-align: center; padding: 20px; text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
             font-size: 1.5rem; font-weight: 900; letter-spacing: 2px;
             border-bottom: 2px solid var(--neon-cyan); box-shadow: 0 0 15px var(--neon-cyan);
             background: rgba(0, 0, 0, 0.5);
@@ -64,38 +50,34 @@
         .quick-nav {
             display: flex; justify-content: space-evenly; align-items: center;
             background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px);
-            position: sticky; top: 0; z-index: 1000;
-            padding: 10px 5px; border-bottom: 1px solid var(--neon-pink);
-            box-shadow: 0 5px 15px rgba(255, 0, 222, 0.2); margin-bottom: 20px;
-            overflow-x: auto; scrollbar-width: none;
+            position: sticky; top: 0; z-index: 1000; padding: 10px 5px;
+            border-bottom: 1px solid var(--neon-pink); box-shadow: 0 5px 15px rgba(255, 0, 222, 0.2);
+            margin-bottom: 20px; overflow-x: auto; scrollbar-width: none;
         }
         .quick-nav::-webkit-scrollbar { display: none; }
         .nav-btn {
             background: rgba(255,255,255,0.05); border: 1px solid var(--neon-cyan);
-            border-radius: 50%; width: 45px; height: 45px; font-size: 1.5rem;
-            display: flex; justify-content: center; align-items: center;
-            cursor: pointer; transition: 0.3s; flex-shrink: 0; box-shadow: 0 0 10px rgba(0,229,255,0.2);
+            border-radius: 50%; width: 45px; height: 45px; font-size: 1.5rem; display: flex;
+            justify-content: center; align-items: center; cursor: pointer; transition: 0.3s; flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(0,229,255,0.2);
         }
         .nav-btn:active, .nav-btn:hover { background: var(--neon-cyan); box-shadow: 0 0 20px var(--neon-cyan); }
 
-        /* --- Store Elements --- */
-        .instruction { text-align: center; font-size: 0.9rem; color: #aaa; margin-bottom: 15px; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; color: var(--neon-cyan); } 100% { opacity: 0.6; } }
+        /* --- Instruction --- */
+        .instruction { text-align: center; font-size: 1rem; font-weight: bold; color: #aaa; margin-bottom: 15px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; color: var(--neon-pink); text-shadow: 0 0 10px var(--neon-pink); } 100% { opacity: 0.6; } }
 
+        /* --- Store Shelves --- */
         .store-container { display: flex; flex-direction: column; gap: 40px; padding: 0 10px; scroll-margin-top: 100px; }
-
         .shelf-section {
-            background: rgba(48, 43, 99, 0.3); border-radius: 15px;
-            border: 1px solid var(--neon-cyan); box-shadow: inset 0 0 10px var(--neon-cyan);
-            padding: 15px 0; position: relative; scroll-margin-top: 80px; /* المسافة من الأعلى عند الضغط على زر التنقل */
+            background: rgba(48, 43, 99, 0.3); border-radius: 15px; border: 1px solid var(--neon-cyan);
+            box-shadow: inset 0 0 10px var(--neon-cyan); padding: 15px 0; position: relative; scroll-margin-top: 80px;
         }
-
         .shelf-title {
-            position: absolute; top: -15px; right: 20px; background: var(--bg-color);
-            padding: 0 15px; color: var(--neon-cyan); font-weight: bold;
-            border: 1px solid var(--neon-cyan); border-radius: 20px; box-shadow: 0 0 8px var(--neon-cyan); z-index: 2;
+            position: absolute; top: -15px; right: 20px; background: var(--bg-color); padding: 0 15px;
+            color: var(--neon-cyan); font-weight: bold; border: 1px solid var(--neon-cyan);
+            border-radius: 20px; box-shadow: 0 0 8px var(--neon-cyan); z-index: 2;
         }
-
         .shelf {
             display: flex; overflow-x: auto; gap: 15px; padding: 20px 15px 10px 15px;
             scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--neon-pink) transparent;
@@ -107,14 +89,36 @@
         .product {
             flex: 0 0 120px; scroll-snap-align: center; background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 10px;
-            text-align: center; cursor: grab; transition: transform 0.2s, box-shadow 0.2s;
+            text-align: center; transition: transform 0.2s, box-shadow 0.2s;
             display: flex; flex-direction: column; align-items: center; justify-content: space-between;
-            height: 140px; user-select: none; touch-action: pan-x;
+            height: 170px; /* تم زيادة الطول ليستوعب الزر الجديد */
         }
-        .product:active { cursor: grabbing; transform: scale(1.05); }
+        .product:hover { box-shadow: 0 0 12px var(--neon-pink); border-color: var(--neon-pink); }
         .product-icon { font-size: 3rem; margin-bottom: 5px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.5)); }
         .product-name { font-size: 0.85rem; font-weight: bold; line-height: 1.2; margin-bottom: 5px; }
-        .product-price { color: var(--neon-green); font-weight: 900; font-size: 0.9rem; text-shadow: 0 0 5px var(--neon-green); }
+        .product-price { color: var(--neon-green); font-weight: 900; font-size: 0.9rem; text-shadow: 0 0 5px var(--neon-green); margin-bottom: 5px; }
+        
+        .add-to-cart-btn {
+            background: linear-gradient(45deg, var(--neon-cyan), #0055ff);
+            color: #fff; border: none; border-radius: 50%;
+            width: 35px; height: 35px; font-size: 1.5rem; font-weight: bold;
+            display: flex; justify-content: center; align-items: center; cursor: pointer;
+            box-shadow: 0 0 10px var(--neon-cyan); transition: 0.2s;
+        }
+        .add-to-cart-btn:active { transform: scale(0.8); background: var(--neon-pink); box-shadow: 0 0 20px var(--neon-pink); }
+
+        /* --- Flying Animation Elements --- */
+        .flying-wrapper {
+            position: fixed; pointer-events: none; z-index: 10000;
+            /* حركة أفقية خطية، وحركة عمودية مقوسة (قوس للأعلى ثم ينزل) */
+            transition: left 0.6s linear, top 0.6s cubic-bezier(0.3, -0.5, 0.7, 1);
+            transform: translate(-50%, -50%); /* لضمان تمركز العنصر في نقطة اللمس */
+        }
+        .flying-inner {
+            font-size: 3.5rem; filter: drop-shadow(0 0 15px var(--neon-pink));
+            /* حركة دوران وتصغير أثناء الطيران */
+            transition: transform 0.6s ease-in, opacity 0.6s ease-in;
+        }
 
         /* --- Basket --- */
         .cart-basket {
@@ -125,8 +129,7 @@
             box-shadow: 0 0 20px var(--neon-pink); z-index: 1000; cursor: pointer;
             backdrop-filter: blur(5px); transition: transform 0.1s;
         }
-        .cart-basket.bounce { transform: translateX(-50%) scale(1.1); }
-        .cart-basket.drag-over { background: rgba(255, 0, 222, 0.3); box-shadow: 0 0 40px var(--neon-pink); }
+        .cart-basket.bounce { transform: translateX(-50%) scale(1.1); box-shadow: 0 0 40px var(--neon-green); border-color: var(--neon-green); }
         .cart-title { font-size: 1.2rem; font-weight: bold; }
         .cart-total { color: var(--neon-green); font-weight: 900; font-size: 1.1rem; }
         .basket-icon { font-size: 2.5rem; position: relative; }
@@ -166,14 +169,11 @@
         .neon-input:focus { border-color: var(--neon-pink); box-shadow: 0 0 10px rgba(255, 0, 222, 0.5); }
         .neon-input option { background: var(--bg-color); color: white; }
         .primary-btn { background: linear-gradient(45deg, var(--neon-pink), var(--neon-cyan)); border: none; padding: 15px; border-radius: 15px; color: white; font-size: 1.2rem; font-weight: bold; cursor: pointer; box-shadow: 0 0 15px rgba(255, 0, 222, 0.4); margin-top: 10px; }
-
-        .drag-clone { position: fixed; pointer-events: none; z-index: 9999; transform: scale(1.1); opacity: 0.9; box-shadow: 0 0 20px var(--neon-cyan); }
-
     </style>
 </head>
 <body>
 
-    <!-- 🎮 شاشة البداية 🎮 -->
+    <!-- شاشة البداية -->
     <div id="start-screen" onclick="startGame()">
         <div class="start-text">اضغط للبدء</div>
         <div class="start-sub">🛒 جهّز سلتك 🛒</div>
@@ -181,15 +181,13 @@
 
     <header>⚡ متجر سترايك ⚡</header>
 
-    <!-- 🚀 شريط التنقل السريع 🚀 -->
-    <nav class="quick-nav" id="quick-nav">
-        <!-- يتم تعبئة الأزرار برمجياً -->
-    </nav>
+    <!-- شريط التنقل -->
+    <nav class="quick-nav" id="quick-nav"></nav>
 
-    <div class="instruction">👆 اسحب المنتج الذي تريده وأفلته داخل السلة بالأسفل</div>
+    <div class="instruction">اضغط على ➕ لإضافة المنتج للسلة</div>
     <div class="store-container" id="store-container"></div>
 
-    <!-- سلة المشتريات -->
+    <!-- السلة -->
     <div class="cart-basket" id="cart-basket" onclick="openCartModal()">
         <div class="cart-info">
             <span class="cart-title">سلة المشتريات</span>
@@ -198,7 +196,7 @@
         <div class="basket-icon">🛒<div class="cart-badge" id="cart-badge">0</div></div>
     </div>
 
-    <!-- نافذة المراجعة -->
+    <!-- نوافذ الدفع والمراجعة -->
     <div class="modal-overlay" id="cart-modal-overlay" onclick="closeModalOnBG(event, 'cart-modal-overlay')">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-header">
@@ -210,7 +208,6 @@
         </div>
     </div>
 
-    <!-- نافذة الدفع -->
     <div class="modal-overlay" id="checkout-modal-overlay" onclick="closeModalOnBG(event, 'checkout-modal-overlay')">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-header">
@@ -242,13 +239,10 @@
     </div>
 
     <script>
-        // 🎵 --- محرك الأصوات (Web Audio API) 8-Bit --- 🎵
-        // توليد الأصوات برمجياً بدون الحاجة لملفات خارجية
+        // --- نظام الصوت ---
         let audioCtx;
         function initAudio() {
-            if(!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
+            if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             if(audioCtx.state === 'suspended') audioCtx.resume();
         }
 
@@ -256,55 +250,35 @@
             if(!audioCtx) return;
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            
+            osc.connect(gain); gain.connect(audioCtx.destination);
             const now = audioCtx.currentTime;
             
             if (type === 'start') {
-                // صوت بدأ اللعبة
-                osc.type = 'square';
-                osc.frequency.setValueAtTime(440, now);
-                osc.frequency.exponentialRampToValueAtTime(880, now + 0.1);
-                gain.gain.setValueAtTime(0.3, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                osc.type = 'square'; osc.frequency.setValueAtTime(440, now); osc.frequency.exponentialRampToValueAtTime(880, now + 0.1);
+                gain.gain.setValueAtTime(0.3, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
                 osc.start(now); osc.stop(now + 0.3);
-            } else if (type === 'pop') {
-                // صوت مسك المنتج للسحب
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(600, now);
-                osc.frequency.exponentialRampToValueAtTime(800, now + 0.05);
-                gain.gain.setValueAtTime(0.2, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+            } else if (type === 'pop') { // صوت خروج المنتج من الرف
+                osc.type = 'sine'; osc.frequency.setValueAtTime(600, now); osc.frequency.exponentialRampToValueAtTime(900, now + 0.1);
+                gain.gain.setValueAtTime(0.2, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
                 osc.start(now); osc.stop(now + 0.1);
-            } else if (type === 'coin') {
-                // صوت إفلات المنتج بالسلة (مثل صوت جمع النقد باللعبة)
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(987.77, now); // B5
-                osc.frequency.setValueAtTime(1318.51, now + 0.1); // E6
-                gain.gain.setValueAtTime(0.3, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+            } else if (type === 'coin') { // صوت السقوط بالسلة
+                osc.type = 'sine'; osc.frequency.setValueAtTime(987.77, now); osc.frequency.setValueAtTime(1318.51, now + 0.1);
+                gain.gain.setValueAtTime(0.3, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
                 osc.start(now); osc.stop(now + 0.4);
             } else if (type === 'success') {
-                // صوت نجاح الطلب
                 osc.type = 'square';
-                [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
-                    osc.frequency.setValueAtTime(freq, now + i*0.1);
-                });
-                gain.gain.setValueAtTime(0.2, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+                [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => osc.frequency.setValueAtTime(f, now + i*0.1));
+                gain.gain.setValueAtTime(0.2, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
                 osc.start(now); osc.stop(now + 0.5);
             }
         }
 
-        // إخفاء شاشة البداية وبدء المحرك الصوتي
         window.startGame = function() {
-            initAudio();
-            playSound('start');
+            initAudio(); playSound('start');
             document.getElementById('start-screen').classList.add('hidden');
         };
 
-        // --- البيانات ---
+        // --- البيانات والواجهة ---
         const storeData = [
             { category: "شوكولاتة وبسكوت", icon: "🍫", items: [{ id: 1, name: "دانس", price: 15, img: "🍫" }, { id: 2, name: "اوه بوي", price: 15, img: "🍫" }, { id: 3, name: "جوردينا 3 قطع", price: 15, img: "🍫" }, { id: 4, name: "جوردينا سويس رول", price: 15, img: "🧁" }, { id: 5, name: "دريم", price: 15, img: "🍫" }, { id: 6, name: "جراندي كيك", price: 15, img: "🍰" }, { id: 7, name: "مولتو صغير", price: 15, img: "🥐" }, { id: 8, name: "مولتو كبير", price: 60, img: "🥐" }, { id: 9, name: "بسكوت مالح", price: 15, img: "🥨" }, { id: 10, name: "بريك سمر", price: 15, img: "🍫" }, { id: 11, name: "بريك داي", price: 15, img: "🍫" }, { id: 12, name: "بريك سوبا", price: 15, img: "🍫" }, { id: 13, name: "بريك هابي", price: 15, img: "🍫" }, { id: 14, name: "بريك ديلايتس", price: 15, img: "🍫" }, { id: 15, name: "تويست", price: 15, img: "🍫" }, { id: 16, name: "لافيتا", price: 15, img: "🍫" }, { id: 17, name: "كناري", price: 15, img: "🍫" }, { id: 18, name: "تصبيرة جبنة", price: 50, img: "🥪" }, { id: 19, name: "تصبيرة شوكولاته", price: 50, img: "🥪" }, { id: 20, name: "روبي", price: 15, img: "🍫" }, { id: 21, name: "الاسكا", price: 10, img: "🍫" }, { id: 22, name: "جوردينا كب كيك", price: 15, img: "🧁" }, { id: 23, name: "جوردينا وافل", price: 15, img: "🧇" }] },
             { category: "مشروبات ساخنة", icon: "☕", items: [{ id: 24, name: "شاي", price: 25, img: "🍵" }, { id: 25, name: "قهوة عميد", price: 65, img: "☕" }, { id: 26, name: "نسكافيه", price: 50, img: "☕" }, { id: 27, name: "كابيتشينو جوداي", price: 50, img: "☕" }, { id: 28, name: "شاي كرك", price: 50, img: "🫖" }, { id: 29, name: "هوت شوكليت", price: 50, img: "☕" }, { id: 30, name: "نسكافيه لاتيه", price: 50, img: "☕" }, { id: 31, name: "زهورات", price: 25, img: "🍵" }] },
@@ -314,39 +288,36 @@
             { category: "البوظة", icon: "🍦", items: [{ id: 74, name: "كف احمر", price: 10, img: "🖐️" }, { id: 75, name: "ساندوش صغير", price: 15, img: "🍦" }, { id: 76, name: "ساندوش كبير", price: 25, img: "🍦" }, { id: 77, name: "قرطوس صغير", price: 50, img: "🍦" }, { id: 78, name: "قرطوس كبير", price: 75, img: "🍦" }, { id: 79, name: "علب صغير", price: 15, img: "🍨" }, { id: 80, name: "علب كبير", price: 50, img: "🍨" }, { id: 81, name: "بيانو", price: 20, img: "🎹" }, { id: 82, name: "لولي", price: 15, img: "🍭" }, { id: 83, name: "كاسة ثلج", price: 35, img: "🍧" }, { id: 84, name: "ميمو", price: 15, img: "🍦" }] }
         ];
 
-        // بناء الواجهة (الرفوف وشريط التنقل)
         const storeContainer = document.getElementById('store-container');
         const quickNav = document.getElementById('quick-nav');
 
         storeData.forEach((section, index) => {
             const sectionId = `shelf-sec-${index}`;
-            
-            // 1. إضافة الزر لشريط التنقل
             const navBtn = document.createElement('div');
-            navBtn.className = 'nav-btn';
-            navBtn.innerText = section.icon;
-            navBtn.onclick = () => document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+            navBtn.className = 'nav-btn'; navBtn.innerText = section.icon;
+            navBtn.onclick = () => document.getElementById(sectionId).scrollIntoView();
             quickNav.appendChild(navBtn);
 
-            // 2. بناء الرف
             const sectionDiv = document.createElement('div');
-            sectionDiv.className = 'shelf-section';
-            sectionDiv.id = sectionId;
+            sectionDiv.className = 'shelf-section'; sectionDiv.id = sectionId;
             sectionDiv.innerHTML = `<div class="shelf-title">${section.icon} ${section.category}</div>`;
-            
-            const shelf = document.createElement('div');
-            shelf.className = 'shelf';
+            const shelf = document.createElement('div'); shelf.className = 'shelf';
             
             section.items.forEach(item => {
                 const product = document.createElement('div');
                 product.className = 'product';
-                product.dataset.id = item.id; product.dataset.name = item.name;
-                product.dataset.price = item.price; product.dataset.img = item.img;
-                product.innerHTML = `<div class="product-icon">${item.img}</div><div class="product-name">${item.name}</div><div class="product-price">${item.price} قرش</div>`;
+                // تخزين البيانات داخل الزر ليتم تمريرها عند الضغط
+                const itemJSON = JSON.stringify({ id: item.id, name: item.name, price: item.price, img: item.img });
+                
+                product.innerHTML = `
+                    <div class="product-icon" id="icon-${item.id}">${item.img}</div>
+                    <div class="product-name">${item.name}</div>
+                    <div class="product-price">${item.price} قرش</div>
+                    <button class="add-to-cart-btn" onclick='animateToCart(event, ${itemJSON}, "icon-${item.id}")'>+</button>
+                `;
                 shelf.appendChild(product);
             });
-            sectionDiv.appendChild(shelf);
-            storeContainer.appendChild(sectionDiv);
+            sectionDiv.appendChild(shelf); storeContainer.appendChild(sectionDiv);
         });
 
         // --- نظام السلة ---
@@ -357,55 +328,100 @@
         }
 
         function updateCartUI() {
-            const totalQirsh = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const totalItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-            
-            const formattedTotal = formatCurrency(totalQirsh);
-            document.getElementById('cart-total-display').innerText = formattedTotal;
-            document.getElementById('modal-total').innerText = formattedTotal;
-            document.getElementById('cart-badge').innerText = totalItemsCount;
+            const totalQirsh = cart.reduce((s, i) => s + (i.price * i.quantity), 0);
+            document.getElementById('cart-total-display').innerText = formatCurrency(totalQirsh);
+            document.getElementById('modal-total').innerText = formatCurrency(totalQirsh);
+            document.getElementById('cart-badge').innerText = cart.reduce((s, i) => s + i.quantity, 0);
 
             const cartList = document.getElementById('cart-items-list');
             cartList.innerHTML = '';
-            if (cart.length === 0) {
-                cartList.innerHTML = '<p style="text-align:center; color:#888; margin-top:20px;">السلة فارغة حالياً</p>';
-            } else {
-                cart.forEach((item) => {
-                    cartList.innerHTML += `
-                        <div class="cart-item">
-                            <div class="item-details"><span style="font-size:1.5rem;">${item.img}</span> 
-                            <div><div style="font-weight:bold;">${item.name}</div><div style="color:var(--neon-green); font-size:0.9rem;">${item.price} قرش للحبة</div></div></div>
-                            <div class="qty-controls">
-                                <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
-                                <span class="qty-number">${item.quantity}</span>
-                                <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
-                            </div>
-                        </div>`;
-                });
-            }
-        }
-
-        function addToCart(draggedItem) {
-            let existingItem = cart.find(i => i.id == draggedItem.id);
-            if (existingItem) existingItem.quantity += 1;
-            else cart.push({ ...draggedItem, quantity: 1 });
-            
-            updateCartUI();
-            
-            playSound('coin'); // 🎵 تشغيل صوت الإفلات
-            const basket = document.getElementById('cart-basket');
-            basket.classList.add('bounce');
-            setTimeout(() => basket.classList.remove('bounce'), 200);
-            if (navigator.vibrate) navigator.vibrate(50);
+            if (cart.length === 0) cartList.innerHTML = '<p style="text-align:center; color:#888; margin-top:20px;">السلة فارغة حالياً</p>';
+            else cart.forEach(item => {
+                cartList.innerHTML += `
+                    <div class="cart-item">
+                        <div class="item-details"><span style="font-size:1.5rem;">${item.img}</span> 
+                        <div><div style="font-weight:bold;">${item.name}</div><div style="color:var(--neon-green); font-size:0.9rem;">${item.price} قرش للحبة</div></div></div>
+                        <div class="qty-controls">
+                            <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+                            <span class="qty-number">${item.quantity}</span>
+                            <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
+                        </div>
+                    </div>`;
+            });
         }
 
         window.changeQty = function(id, change) {
-            let itemIndex = cart.findIndex(i => i.id == id);
-            if (itemIndex > -1) {
-                cart[itemIndex].quantity += change;
-                if (cart[itemIndex].quantity <= 0) cart.splice(itemIndex, 1);
+            let idx = cart.findIndex(i => i.id == id);
+            if (idx > -1) {
+                cart[idx].quantity += change;
+                if (cart[idx].quantity <= 0) cart.splice(idx, 1);
                 updateCartUI();
             }
+        };
+
+        // --- 🚀 أنيميشن الطيران للسلة 🚀 ---
+        window.animateToCart = function(event, itemData, iconId) {
+            // منع التمرير المؤقت
+            event.preventDefault();
+            
+            playSound('pop'); // صوت الإطلاق
+
+            // 1. تحديد إحداثيات البداية (صورة المنتج) والنهاية (السلة)
+            const startIcon = document.getElementById(iconId);
+            const basketEl = document.getElementById('cart-basket');
+            
+            const startRect = startIcon.getBoundingClientRect();
+            const endRect = basketEl.getBoundingClientRect();
+
+            // مركز المنتج
+            const startX = startRect.left + startRect.width / 2;
+            const startY = startRect.top + startRect.height / 2;
+            // مركز السلة
+            const endX = endRect.left + endRect.width / 2;
+            const endY = endRect.top + endRect.height / 2;
+
+            // 2. إنشاء عنصر الطيران (نقسمه لاثنين لعمل تأثير القوس المنحني)
+            const wrapper = document.createElement('div');
+            wrapper.className = 'flying-wrapper';
+            wrapper.style.left = startX + 'px';
+            wrapper.style.top = startY + 'px';
+
+            const inner = document.createElement('div');
+            inner.className = 'flying-inner';
+            inner.innerText = itemData.img; // وضع إيموجي/صورة المنتج
+
+            wrapper.appendChild(inner);
+            document.body.appendChild(wrapper);
+
+            if (navigator.vibrate) navigator.vibrate(20);
+
+            // 3. إعطاء أمر الانطلاق بعد فريم واحد (ليعمل الـ CSS Transition)
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    wrapper.style.left = endX + 'px';
+                    wrapper.style.top = endY + 'px';
+                    // تصغير الحجم والدوران 360 درجة
+                    inner.style.transform = 'scale(0.2) rotate(360deg)';
+                    inner.style.opacity = '0.5';
+                });
+            });
+
+            // 4. بعد انتهاء حركة الطيران (600ms) نضيفه للسلة فعلياً
+            setTimeout(() => {
+                wrapper.remove(); // إزالة العنصر الوهمي
+                
+                // إضافته للقائمة
+                let exist = cart.find(i => i.id == itemData.id);
+                if (exist) exist.quantity += 1; else cart.push({ ...itemData, quantity: 1 });
+                updateCartUI();
+                
+                // تأثيرات السلة
+                playSound('coin');
+                basketEl.classList.add('bounce');
+                setTimeout(() => basketEl.classList.remove('bounce'), 200);
+                if (navigator.vibrate) navigator.vibrate(50);
+                
+            }, 600);
         };
 
         // --- النوافذ المنبثقة ---
@@ -414,8 +430,7 @@
         
         window.proceedToCheckout = function() {
             if(cart.length === 0) return alert("السلة فارغة!");
-            closeCartModal();
-            document.getElementById('checkout-modal-overlay').style.display = 'flex';
+            closeCartModal(); document.getElementById('checkout-modal-overlay').style.display = 'flex';
             if(localStorage.getItem('st_name')) document.getElementById('cust-name').value = localStorage.getItem('st_name');
             if(localStorage.getItem('st_phone')) document.getElementById('cust-phone').value = localStorage.getItem('st_phone');
             if(localStorage.getItem('st_loc')) document.getElementById('cust-location').value = localStorage.getItem('st_loc');
@@ -433,77 +448,13 @@
             localStorage.setItem('st_phone', phone);
             localStorage.setItem('st_loc', document.getElementById('cust-location').value);
 
-            playSound('success'); // 🎵 تشغيل صوت النجاح
+            playSound('success');
 
             const total = formatCurrency(cart.reduce((s, i) => s + (i.price * i.quantity), 0));
             alert(`🎉 تم تأكيد طلبك بنجاح!\nالمبلغ: ${total}`);
             
             cart = []; updateCartUI(); closeCheckoutModal();
         };
-
-        // --- نظام السحب والإفلات للهواتف ---
-        let isDragging = false, dragClone = null, dragItemData = null, pressTimer = null;
-        const basketEl = document.getElementById('cart-basket');
-        document.querySelectorAll('.product').forEach(p => {
-            p.addEventListener('touchstart', handleDragStart, {passive: false});
-            p.addEventListener('mousedown', handleDragStart);
-        });
-
-        document.addEventListener('touchmove', handleDragMove, {passive: false});
-        document.addEventListener('mousemove', handleDragMove);
-        document.addEventListener('touchend', handleDragEnd);
-        document.addEventListener('mouseup', handleDragEnd);
-
-        function handleDragStart(e) {
-            if (e.type === 'touchstart') pressTimer = setTimeout(() => initiateDrag(e, this), 200);
-            else { initiateDrag(e, this); e.preventDefault(); }
-        }
-
-        function initiateDrag(e, el) {
-            isDragging = true;
-            dragItemData = { id: el.dataset.id, name: el.dataset.name, price: parseInt(el.dataset.price), img: el.dataset.img };
-            dragClone = el.cloneNode(true); dragClone.classList.add('drag-clone');
-            document.body.appendChild(dragClone);
-            
-            playSound('pop'); // 🎵 تشغيل صوت المسك
-
-            if (navigator.vibrate) navigator.vibrate(20);
-            positionClone(e);
-        }
-
-        function handleDragMove(e) {
-            if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; }
-            if (!isDragging || !dragClone) return;
-            if (e.cancelable) e.preventDefault(); 
-            positionClone(e);
-            isOverBasket(e) ? basketEl.classList.add('drag-over') : basketEl.classList.remove('drag-over');
-        }
-
-        function positionClone(e) {
-            const cx = e.touches ? e.touches[0].clientX : e.clientX;
-            const cy = e.touches ? e.touches[0].clientY : e.clientY;
-            dragClone.style.left = (cx - dragClone.offsetWidth / 2) + 'px';
-            dragClone.style.top = (cy - dragClone.offsetHeight / 2) + 'px';
-        }
-
-        function handleDragEnd(e) {
-            if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; }
-            if (!isDragging) return;
-            isDragging = false; basketEl.classList.remove('drag-over');
-            if (isOverBasket(e)) {
-                addToCart(dragItemData);
-                dragClone.style.transform = 'scale(0.1)'; dragClone.style.opacity = '0';
-                setTimeout(() => dragClone.remove(), 200);
-            } else dragClone.remove();
-            dragClone = null; dragItemData = null;
-        }
-
-        function isOverBasket(e) {
-            const cx = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
-            const cy = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
-            const r = basketEl.getBoundingClientRect();
-            return (cx >= r.left && cx <= r.right && cy >= r.top && cy <= r.bottom);
-        }
     </script>
 </body>
 </html>
