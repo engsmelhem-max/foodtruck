@@ -91,17 +91,22 @@
             border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 10px;
             text-align: center; transition: transform 0.2s, box-shadow 0.2s;
             display: flex; flex-direction: column; align-items: center; justify-content: space-between;
-            height: 170px; /* تم زيادة الطول ليستوعب الزر الجديد */
+            height: 150px; /* تم تقليل الارتفاع ليتناسب مع الأحجام الجديدة */
         }
         .product:hover { box-shadow: 0 0 12px var(--neon-pink); border-color: var(--neon-pink); }
-        .product-icon { font-size: 3rem; margin-bottom: 5px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.5)); }
-        .product-name { font-size: 0.85rem; font-weight: bold; line-height: 1.2; margin-bottom: 5px; }
-        .product-price { color: var(--neon-green); font-weight: 900; font-size: 0.9rem; text-shadow: 0 0 5px var(--neon-green); margin-bottom: 5px; }
+        .product-icon { font-size: 3rem; margin-bottom: 2px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.5)); }
         
+        /* تم تصغير حجم خط الاسم */
+        .product-name { font-size: 0.75rem; font-weight: bold; line-height: 1.2; margin-bottom: 2px; }
+        
+        /* تم تصغير حجم خط السعر */
+        .product-price { color: var(--neon-green); font-weight: 900; font-size: 0.8rem; text-shadow: 0 0 5px var(--neon-green); margin-bottom: 5px; }
+        
+        /* تم تصغير حجم الزر */
         .add-to-cart-btn {
             background: linear-gradient(45deg, var(--neon-cyan), #0055ff);
             color: #fff; border: none; border-radius: 50%;
-            width: 35px; height: 35px; font-size: 1.5rem; font-weight: bold;
+            width: 28px; height: 28px; font-size: 1.2rem; font-weight: bold;
             display: flex; justify-content: center; align-items: center; cursor: pointer;
             box-shadow: 0 0 10px var(--neon-cyan); transition: 0.2s;
         }
@@ -110,13 +115,11 @@
         /* --- Flying Animation Elements --- */
         .flying-wrapper {
             position: fixed; pointer-events: none; z-index: 10000;
-            /* حركة أفقية خطية، وحركة عمودية مقوسة (قوس للأعلى ثم ينزل) */
             transition: left 0.6s linear, top 0.6s cubic-bezier(0.3, -0.5, 0.7, 1);
-            transform: translate(-50%, -50%); /* لضمان تمركز العنصر في نقطة اللمس */
+            transform: translate(-50%, -50%);
         }
         .flying-inner {
             font-size: 3.5rem; filter: drop-shadow(0 0 15px var(--neon-pink));
-            /* حركة دوران وتصغير أثناء الطيران */
             transition: transform 0.6s ease-in, opacity 0.6s ease-in;
         }
 
@@ -257,11 +260,11 @@
                 osc.type = 'square'; osc.frequency.setValueAtTime(440, now); osc.frequency.exponentialRampToValueAtTime(880, now + 0.1);
                 gain.gain.setValueAtTime(0.3, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
                 osc.start(now); osc.stop(now + 0.3);
-            } else if (type === 'pop') { // صوت خروج المنتج من الرف
+            } else if (type === 'pop') { 
                 osc.type = 'sine'; osc.frequency.setValueAtTime(600, now); osc.frequency.exponentialRampToValueAtTime(900, now + 0.1);
                 gain.gain.setValueAtTime(0.2, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
                 osc.start(now); osc.stop(now + 0.1);
-            } else if (type === 'coin') { // صوت السقوط بالسلة
+            } else if (type === 'coin') { 
                 osc.type = 'sine'; osc.frequency.setValueAtTime(987.77, now); osc.frequency.setValueAtTime(1318.51, now + 0.1);
                 gain.gain.setValueAtTime(0.3, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
                 osc.start(now); osc.stop(now + 0.4);
@@ -306,7 +309,6 @@
             section.items.forEach(item => {
                 const product = document.createElement('div');
                 product.className = 'product';
-                // تخزين البيانات داخل الزر ليتم تمريرها عند الضغط
                 const itemJSON = JSON.stringify({ id: item.id, name: item.name, price: item.price, img: item.img });
                 
                 product.innerHTML = `
@@ -361,26 +363,21 @@
 
         // --- 🚀 أنيميشن الطيران للسلة 🚀 ---
         window.animateToCart = function(event, itemData, iconId) {
-            // منع التمرير المؤقت
             event.preventDefault();
             
-            playSound('pop'); // صوت الإطلاق
+            playSound('pop'); 
 
-            // 1. تحديد إحداثيات البداية (صورة المنتج) والنهاية (السلة)
             const startIcon = document.getElementById(iconId);
             const basketEl = document.getElementById('cart-basket');
             
             const startRect = startIcon.getBoundingClientRect();
             const endRect = basketEl.getBoundingClientRect();
 
-            // مركز المنتج
             const startX = startRect.left + startRect.width / 2;
             const startY = startRect.top + startRect.height / 2;
-            // مركز السلة
             const endX = endRect.left + endRect.width / 2;
             const endY = endRect.top + endRect.height / 2;
 
-            // 2. إنشاء عنصر الطيران (نقسمه لاثنين لعمل تأثير القوس المنحني)
             const wrapper = document.createElement('div');
             wrapper.className = 'flying-wrapper';
             wrapper.style.left = startX + 'px';
@@ -388,34 +385,29 @@
 
             const inner = document.createElement('div');
             inner.className = 'flying-inner';
-            inner.innerText = itemData.img; // وضع إيموجي/صورة المنتج
+            inner.innerText = itemData.img; 
 
             wrapper.appendChild(inner);
             document.body.appendChild(wrapper);
 
             if (navigator.vibrate) navigator.vibrate(20);
 
-            // 3. إعطاء أمر الانطلاق بعد فريم واحد (ليعمل الـ CSS Transition)
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     wrapper.style.left = endX + 'px';
                     wrapper.style.top = endY + 'px';
-                    // تصغير الحجم والدوران 360 درجة
                     inner.style.transform = 'scale(0.2) rotate(360deg)';
                     inner.style.opacity = '0.5';
                 });
             });
 
-            // 4. بعد انتهاء حركة الطيران (600ms) نضيفه للسلة فعلياً
             setTimeout(() => {
-                wrapper.remove(); // إزالة العنصر الوهمي
+                wrapper.remove(); 
                 
-                // إضافته للقائمة
                 let exist = cart.find(i => i.id == itemData.id);
                 if (exist) exist.quantity += 1; else cart.push({ ...itemData, quantity: 1 });
                 updateCartUI();
                 
-                // تأثيرات السلة
                 playSound('coin');
                 basketEl.classList.add('bounce');
                 setTimeout(() => basketEl.classList.remove('bounce'), 200);
