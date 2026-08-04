@@ -27,7 +27,7 @@
             background: linear-gradient(to bottom, var(--bg-color), #24243e);
             color: var(--text-light);
             min-height: 100vh;
-            padding-bottom: 120px; /* Space for the basket */
+            padding-bottom: 120px;
             overflow-x: hidden;
         }
 
@@ -45,14 +45,9 @@
             margin-bottom: 20px;
         }
 
-        /* Shelves Area */
-        .store-container {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            padding: 0 10px;
-        }
+        .store-container { display: flex; flex-direction: column; gap: 30px; padding: 0 10px; }
 
+        /* Shelves */
         .shelf-section {
             background: rgba(48, 43, 99, 0.3);
             border-radius: 15px;
@@ -63,308 +58,205 @@
         }
 
         .shelf-title {
-            position: absolute;
-            top: -15px;
-            right: 20px;
-            background: var(--bg-color);
-            padding: 0 15px;
-            color: var(--neon-cyan);
-            font-weight: bold;
-            border: 1px solid var(--neon-cyan);
-            border-radius: 20px;
-            box-shadow: 0 0 8px var(--neon-cyan);
-            z-index: 2;
+            position: absolute; top: -15px; right: 20px;
+            background: var(--bg-color); padding: 0 15px;
+            color: var(--neon-cyan); font-weight: bold;
+            border: 1px solid var(--neon-cyan); border-radius: 20px;
+            box-shadow: 0 0 8px var(--neon-cyan); z-index: 2;
         }
 
         .shelf {
-            display: flex;
-            overflow-x: auto;
-            gap: 15px;
+            display: flex; overflow-x: auto; gap: 15px;
             padding: 20px 15px 10px 15px;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: thin;
+            scroll-snap-type: x mandatory; scrollbar-width: thin;
             scrollbar-color: var(--neon-pink) transparent;
         }
 
-        .shelf::-webkit-scrollbar {
-            height: 6px;
-        }
-        .shelf::-webkit-scrollbar-thumb {
-            background-color: var(--neon-pink);
-            border-radius: 10px;
-        }
+        .shelf::-webkit-scrollbar { height: 6px; }
+        .shelf::-webkit-scrollbar-thumb { background-color: var(--neon-pink); border-radius: 10px; }
 
         /* Products */
         .product {
-            flex: 0 0 120px;
-            scroll-snap-align: center;
+            flex: 0 0 120px; scroll-snap-align: center;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            padding: 10px;
-            text-align: center;
-            cursor: grab;
-            transition: transform 0.2s, box-shadow 0.2s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            height: 140px;
-            user-select: none;
-            touch-action: pan-x; /* Allow horizontal scroll, intercept vertical for drag */
+            border-radius: 12px; padding: 10px; text-align: center;
+            cursor: grab; transition: transform 0.2s, box-shadow 0.2s;
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: space-between; height: 140px;
+            user-select: none; touch-action: pan-x;
         }
 
-        .product:active {
-            cursor: grabbing;
-        }
-
-        .product:hover {
-            box-shadow: 0 0 12px var(--neon-pink);
-            border-color: var(--neon-pink);
-        }
-
-        .product-icon {
-            font-size: 3rem;
-            margin-bottom: 5px;
-            filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
-        }
-
-        .product-name {
-            font-size: 0.85rem;
-            font-weight: bold;
-            line-height: 1.2;
-            margin-bottom: 5px;
-        }
-
-        .product-price {
-            color: var(--neon-green);
-            font-weight: 900;
-            font-size: 0.9rem;
-            text-shadow: 0 0 5px var(--neon-green);
-        }
+        .product:active { cursor: grabbing; }
+        .product:hover { box-shadow: 0 0 12px var(--neon-pink); border-color: var(--neon-pink); }
+        .product-icon { font-size: 3rem; margin-bottom: 5px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.5)); }
+        .product-name { font-size: 0.85rem; font-weight: bold; line-height: 1.2; margin-bottom: 5px; }
+        .product-price { color: var(--neon-green); font-weight: 900; font-size: 0.9rem; text-shadow: 0 0 5px var(--neon-green); }
 
         /* Basket */
         .cart-basket {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 400px;
-            background: rgba(15, 12, 41, 0.9);
-            border: 2px solid var(--neon-pink);
-            border-radius: 30px;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 0 20px var(--neon-pink);
-            z-index: 1000;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-            transition: transform 0.1s;
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 400px; background: rgba(15, 12, 41, 0.9);
+            border: 2px solid var(--neon-pink); border-radius: 30px;
+            padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 0 20px var(--neon-pink); z-index: 1000; cursor: pointer;
+            backdrop-filter: blur(5px); transition: transform 0.1s;
         }
-
-        .cart-basket.bounce {
-            transform: translateX(-50%) scale(1.1);
-        }
-
-        .cart-basket.drag-over {
-            background: rgba(255, 0, 222, 0.3);
-            box-shadow: 0 0 40px var(--neon-pink);
-        }
-
-        .cart-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .cart-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .cart-total {
-            color: var(--neon-green);
-            font-weight: 900;
-            font-size: 1.1rem;
-        }
-
-        .basket-icon {
-            font-size: 2.5rem;
-            position: relative;
-        }
-
+        .cart-basket.bounce { transform: translateX(-50%) scale(1.1); }
+        .cart-basket.drag-over { background: rgba(255, 0, 222, 0.3); box-shadow: 0 0 40px var(--neon-pink); }
+        .cart-title { font-size: 1.2rem; font-weight: bold; }
+        .cart-total { color: var(--neon-green); font-weight: 900; font-size: 1.1rem; }
+        .basket-icon { font-size: 2.5rem; position: relative; }
         .cart-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--neon-cyan);
-            color: #000;
-            font-weight: bold;
-            border-radius: 50%;
-            width: 25px;
-            height: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
+            position: absolute; top: -5px; right: -5px; background: var(--neon-cyan);
+            color: #000; font-weight: bold; border-radius: 50%; width: 25px; height: 25px;
+            display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
         }
 
-        /* Modal for Cart Items */
-        .cart-modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            display: none;
-            justify-content: center;
-            align-items: flex-end; /* Mobile friendly bottom sheet */
+        /* Modals */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8); z-index: 2000; display: none;
+            justify-content: center; align-items: flex-end; backdrop-filter: blur(5px);
         }
 
-        .cart-modal {
-            background: #1a1a2e;
-            width: 100%;
-            max-height: 80vh;
-            border-top-left-radius: 30px;
-            border-top-right-radius: 30px;
-            border-top: 3px solid var(--neon-cyan);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 -10px 30px rgba(0, 229, 255, 0.2);
+        .modal-content {
+            background: #1a1a2e; width: 100%; max-height: 85vh;
+            border-top-left-radius: 30px; border-top-right-radius: 30px;
+            border-top: 3px solid var(--neon-cyan); padding: 20px;
+            display: flex; flex-direction: column; box-shadow: 0 -10px 30px rgba(0, 229, 255, 0.2);
             animation: slideUp 0.3s ease-out;
         }
 
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
         .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 10px;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;
         }
 
-        .close-btn {
-            background: none;
-            border: none;
-            color: var(--neon-pink);
-            font-size: 2rem;
-            cursor: pointer;
-        }
+        .close-btn { background: none; border: none; color: var(--neon-pink); font-size: 2rem; cursor: pointer; }
 
-        .cart-items-list {
-            overflow-y: auto;
-            flex: 1;
-            margin-bottom: 20px;
-        }
-
+        /* Cart Items & Qty Controls */
+        .cart-items-list { overflow-y: auto; flex: 1; margin-bottom: 20px; }
         .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255,255,255,0.05);
-            margin-bottom: 10px;
-            padding: 10px 15px;
-            border-radius: 10px;
-            border-right: 3px solid var(--neon-pink);
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(255,255,255,0.05); margin-bottom: 10px; padding: 10px;
+            border-radius: 10px; border-right: 3px solid var(--neon-pink);
         }
-
-        .remove-btn {
-            background: rgba(255, 0, 0, 0.2);
-            color: #ff4d4d;
-            border: 1px solid #ff4d4d;
-            border-radius: 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-            font-weight: bold;
+        
+        .item-details { display: flex; align-items: center; gap: 10px; flex: 1; }
+        
+        .qty-controls {
+            display: flex; align-items: center; gap: 10px;
+            background: rgba(0, 0, 0, 0.3); padding: 5px 10px; border-radius: 20px;
+            border: 1px solid var(--neon-cyan);
         }
+        
+        .qty-btn {
+            background: none; border: none; color: var(--neon-cyan);
+            font-size: 1.5rem; font-weight: bold; cursor: pointer; padding: 0 5px;
+        }
+        .qty-number { font-weight: bold; font-size: 1.1rem; width: 20px; text-align: center; }
 
-        .checkout-btn {
+        /* Form Styles */
+        .checkout-form { display: flex; flex-direction: column; gap: 15px; overflow-y: auto;}
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        .form-group label { color: var(--neon-cyan); font-weight: bold; font-size: 0.9rem; }
+        
+        .neon-input {
+            background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255,255,255,0.2);
+            color: white; padding: 12px; border-radius: 10px; font-size: 1rem;
+            outline: none; transition: 0.3s;
+        }
+        .neon-input:focus { border-color: var(--neon-pink); box-shadow: 0 0 10px rgba(255, 0, 222, 0.5); }
+        .neon-input option { background: var(--bg-color); color: white; }
+
+        .primary-btn {
             background: linear-gradient(45deg, var(--neon-pink), var(--neon-cyan));
-            border: none;
-            padding: 15px;
-            border-radius: 15px;
-            color: white;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(255, 0, 222, 0.5);
+            border: none; padding: 15px; border-radius: 15px; color: white;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 0, 222, 0.4); margin-top: 10px;
         }
 
-        /* Drag Clone Styling */
         .drag-clone {
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transform: scale(1.1);
-            opacity: 0.9;
-            box-shadow: 0 0 20px var(--neon-cyan);
-            border-color: var(--neon-cyan);
+            position: fixed; pointer-events: none; z-index: 9999;
+            transform: scale(1.1); opacity: 0.9; box-shadow: 0 0 20px var(--neon-cyan);
         }
-
-        /* Instructions Banner */
-        .instruction {
-            text-align: center;
-            font-size: 0.9rem;
-            color: #aaa;
-            margin-bottom: 15px;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; color: var(--neon-cyan); }
-            100% { opacity: 0.6; }
-        }
+        
+        .instruction { text-align: center; font-size: 0.9rem; color: #aaa; margin-bottom: 15px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; color: var(--neon-cyan); } 100% { opacity: 0.6; } }
 
     </style>
 </head>
 <body>
 
     <header>⚡ متجر سترايك ⚡</header>
-    
-    <div class="instruction">
-        👆 اسحب المنتج الذي تريده وأفلته داخل السلة بالأسفل
-    </div>
+    <div class="instruction">👆 اسحب المنتج الذي تريده وأفلته داخل السلة بالأسفل</div>
 
-    <div class="store-container" id="store-container">
-        <!-- Shelves will be generated here by JS -->
-    </div>
+    <div class="store-container" id="store-container"></div>
 
-    <!-- The physical basket at the bottom -->
+    <!-- Basket -->
     <div class="cart-basket" id="cart-basket" onclick="openCartModal()">
         <div class="cart-info">
             <span class="cart-title">سلة المشتريات</span>
             <span class="cart-total" id="cart-total-display">0 قرش</span>
         </div>
-        <div class="basket-icon">
-            🛒
-            <div class="cart-badge" id="cart-badge">0</div>
+        <div class="basket-icon">🛒<div class="cart-badge" id="cart-badge">0</div></div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="modal-overlay" id="cart-modal-overlay" onclick="closeModalOnBG(event, 'cart-modal-overlay')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>مراجعة السلة 🛒</h2>
+                <button class="close-btn" onclick="closeCartModal()">&times;</button>
+            </div>
+            <div class="cart-items-list" id="cart-items-list"></div>
+            <button class="primary-btn" onclick="proceedToCheckout()">المتابعة للطلب (<span id="modal-total">0</span>)</button>
         </div>
     </div>
 
-    <!-- Modal for reviewing and removing items -->
-    <div class="cart-modal-overlay" id="cart-modal-overlay" onclick="closeModalOnBG(event)">
-        <div class="cart-modal">
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkout-modal-overlay" onclick="closeModalOnBG(event, 'checkout-modal-overlay')">
+        <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-header">
-                <h2>مراجعة الطلب 🧾</h2>
-                <button class="close-btn" onclick="closeCartModal()">&times;</button>
+                <h2>إتمام الطلب 🚀</h2>
+                <button class="close-btn" onclick="closeCheckoutModal()">&times;</button>
             </div>
-            <div class="cart-items-list" id="cart-items-list">
-                <!-- Cart items added here -->
-            </div>
-            <button class="checkout-btn" onclick="checkout()">🚀 إكمال الطلب (<span id="modal-total">0</span>)</button>
+            <form class="checkout-form" id="checkout-form" onsubmit="submitOrder(event)">
+                
+                <div class="form-group">
+                    <label for="cust-name">الاسم الثلاثي</label>
+                    <input type="text" id="cust-name" class="neon-input" required placeholder="أدخل اسمك الكريم">
+                </div>
+
+                <div class="form-group">
+                    <label for="cust-phone">رقم الهاتف (يجب أن يبدأ بـ 07)</label>
+                    <input type="tel" id="cust-phone" class="neon-input" required 
+                           pattern="^07[0-9]{8}$" maxlength="10" 
+                           title="رقم الهاتف يجب أن يتكون من 10 أرقام ويبدأ بـ 07"
+                           placeholder="مثال: 0791234567"
+                           oninput="this.value = this.value.replace(/[^0-9]/g, '')"> <!-- يمنع كتابة أي شيء غير الأرقام -->
+                </div>
+
+                <div class="form-group">
+                    <label for="cust-location">مكان التسليم</label>
+                    <select id="cust-location" class="neon-input" required>
+                        <option value="" disabled selected>اختر مكان التسليم...</option>
+                        <option value="مكتبة عبد الحميد شومان المقابلين">مكتبة عبد الحميد شومان المقابلين</option>
+                        <option value="البريد الاردني">البريد الأردني</option>
+                        <option value="مكتب الخدمات الحكومية">مكتب الخدمات الحكومية</option>
+                        <option value="نادي الشباب العربي">نادي الشباب العربي</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="primary-btn">تأكيد الطلب النهائي ✅</button>
+            </form>
         </div>
     </div>
 
     <script>
-        // --- 1. قاعدة البيانات (Database) ---
-        // يمكنك تغيير الأسعار، الأسماء، أو إضافة مسار صورة حقيقية بدل الإيموجي مستقبلاً
         const storeData = [
             {
                 category: "شوكولاتة وبسكوت", icon: "🍫",
@@ -482,30 +374,23 @@
             }
         ];
 
-        // --- 2. بناء الواجهة (Rendering) ---
+        // --- Render Shelves ---
         const storeContainer = document.getElementById('store-container');
-        
         storeData.forEach((section, index) => {
             const sectionDiv = document.createElement('div');
             sectionDiv.className = 'shelf-section';
-            
-            const title = document.createElement('div');
-            title.className = 'shelf-title';
-            title.innerText = `${section.icon} ${section.category}`;
+            sectionDiv.innerHTML = `<div class="shelf-title">${section.icon} ${section.category}</div>`;
             
             const shelf = document.createElement('div');
             shelf.className = 'shelf';
-            shelf.id = `shelf-${index}`;
-
+            
             section.items.forEach(item => {
                 const product = document.createElement('div');
                 product.className = 'product';
-                // تخزين بيانات المنتج داخل العنصر
                 product.dataset.id = item.id;
                 product.dataset.name = item.name;
                 product.dataset.price = item.price;
                 product.dataset.img = item.img;
-
                 product.innerHTML = `
                     <div class="product-icon">${item.img}</div>
                     <div class="product-name">${item.name}</div>
@@ -513,13 +398,11 @@
                 `;
                 shelf.appendChild(product);
             });
-
-            sectionDiv.appendChild(title);
             sectionDiv.appendChild(shelf);
             storeContainer.appendChild(sectionDiv);
         });
 
-        // --- 3. نظام السلة (Cart Logic) ---
+        // --- Cart Logic (With Quantity) ---
         let cart = [];
 
         function formatCurrency(qirsh) {
@@ -533,107 +416,156 @@
         }
 
         function updateCartUI() {
-            const totalQirsh = cart.reduce((sum, item) => sum + item.price, 0);
-            const formattedTotal = formatCurrency(totalQirsh);
+            const totalQirsh = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const totalItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
             
+            const formattedTotal = formatCurrency(totalQirsh);
             document.getElementById('cart-total-display').innerText = formattedTotal;
             document.getElementById('modal-total').innerText = formattedTotal;
-            document.getElementById('cart-badge').innerText = cart.length;
+            document.getElementById('cart-badge').innerText = totalItemsCount;
 
-            // تحديث قائمة المراجعة (النافذة المنبثقة)
             const cartList = document.getElementById('cart-items-list');
             cartList.innerHTML = '';
             
             if (cart.length === 0) {
                 cartList.innerHTML = '<p style="text-align:center; color:#888; margin-top:20px;">السلة فارغة حالياً</p>';
             } else {
-                cart.forEach((item, index) => {
+                cart.forEach((item) => {
                     cartList.innerHTML += `
                         <div class="cart-item">
-                            <div>
-                                <span style="font-size:1.2rem;">${item.img}</span> 
-                                <strong>${item.name}</strong> 
-                                <span style="color:var(--neon-green); margin-right:10px;">${item.price} قرش</span>
+                            <div class="item-details">
+                                <span style="font-size:1.5rem;">${item.img}</span> 
+                                <div>
+                                    <div style="font-weight:bold;">${item.name}</div>
+                                    <div style="color:var(--neon-green); font-size:0.9rem;">${item.price} قرش للحبة</div>
+                                </div>
                             </div>
-                            <button class="remove-btn" onclick="removeFromCart(${index})">إزالة ✖</button>
+                            <div class="qty-controls">
+                                <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+                                <span class="qty-number">${item.quantity}</span>
+                                <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
+                            </div>
                         </div>
                     `;
                 });
             }
         }
 
-        function addToCart(item) {
-            cart.push(item);
+        function addToCart(draggedItem) {
+            let existingItem = cart.find(i => i.id == draggedItem.id);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...draggedItem, quantity: 1 });
+            }
+            
             updateCartUI();
             
-            // مؤثرات بصرية وحسية
             const basket = document.getElementById('cart-basket');
             basket.classList.add('bounce');
             setTimeout(() => basket.classList.remove('bounce'), 200);
-
-            // اهتزاز الهاتف (إذا كان مدعوماً)
-            if (navigator.vibrate) {
-                navigator.vibrate(50);
-            }
+            if (navigator.vibrate) navigator.vibrate(50);
         }
 
-        window.removeFromCart = function(index) {
-            cart.splice(index, 1);
-            updateCartUI();
+        window.changeQty = function(id, change) {
+            let itemIndex = cart.findIndex(i => i.id == id);
+            if (itemIndex > -1) {
+                cart[itemIndex].quantity += change;
+                if (cart[itemIndex].quantity <= 0) {
+                    cart.splice(itemIndex, 1);
+                }
+                updateCartUI();
+            }
         };
 
-        // --- 4. نوافذ السلة والطلب (Modals) ---
+        // --- Modals Management ---
         window.openCartModal = function() {
             document.getElementById('cart-modal-overlay').style.display = 'flex';
         };
-
         window.closeCartModal = function() {
             document.getElementById('cart-modal-overlay').style.display = 'none';
         };
-
-        window.closeModalOnBG = function(e) {
-            if (e.target.id === 'cart-modal-overlay') closeCartModal();
-        };
-
-        window.checkout = function() {
+        
+        window.proceedToCheckout = function() {
             if(cart.length === 0) {
                 alert("السلة فارغة! قم بسحب بعض المنتجات أولاً.");
                 return;
             }
-            alert(`تم استلام طلبك بنجاح!\nالمجموع الكلي: ${formatCurrency(cart.reduce((s, i) => s + i.price, 0))}\nجاري التحضير... 🚀`);
-            cart = [];
-            updateCartUI();
             closeCartModal();
+            document.getElementById('checkout-modal-overlay').style.display = 'flex';
+            loadUserData(); // تحميل البيانات المحفوظة إن وجدت
+        };
+        
+        window.closeCheckoutModal = function() {
+            document.getElementById('checkout-modal-overlay').style.display = 'none';
         };
 
-        // --- 5. نظام السحب والإفلات المخصص للهواتف (Custom Touch Drag & Drop) ---
-        let isDragging = false;
-        let dragClone = null;
-        let dragItemData = null;
-        let pressTimer = null;
-        const basketEl = document.getElementById('cart-basket');
+        window.closeModalOnBG = function(e, id) {
+            if (e.target.id === id) {
+                document.getElementById(id).style.display = 'none';
+            }
+        };
 
+        // --- Auto-fill / LocalStorage ---
+        function loadUserData() {
+            if(localStorage.getItem('strike_name')) {
+                document.getElementById('cust-name').value = localStorage.getItem('strike_name');
+            }
+            if(localStorage.getItem('strike_phone')) {
+                document.getElementById('cust-phone').value = localStorage.getItem('strike_phone');
+            }
+            if(localStorage.getItem('strike_location')) {
+                document.getElementById('cust-location').value = localStorage.getItem('strike_location');
+            }
+        }
+
+        window.submitOrder = function(e) {
+            e.preventDefault(); // منع إعادة تحميل الصفحة
+            
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const location = document.getElementById('cust-location').value;
+
+            // التحقق من رقم الهاتف مرة أخرى برمجياً كطبقة حماية ثانية
+            const phoneRegex = /^07\d{8}$/;
+            if (!phoneRegex.test(phone)) {
+                alert("يرجى التأكد من أن رقم الهاتف يتكون من 10 أرقام ويبدأ بـ 07");
+                return;
+            }
+
+            // حفظ البيانات للمرات القادمة
+            localStorage.setItem('strike_name', name);
+            localStorage.setItem('strike_phone', phone);
+            localStorage.setItem('strike_location', location);
+
+            // إتمام الطلب بنجاح
+            const totalQirsh = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            alert(`🎉 تم تأكيد طلبك بنجاح يا ${name}!\n\nسيتم التوصيل إلى: ${location}\nالمبلغ المطلوب: ${formatCurrency(totalQirsh)}\n\nسنتواصل معك قريباً على الرقم: ${phone}`);
+            
+            // تصفير السلة وإغلاق النافذة
+            cart = [];
+            updateCartUI();
+            closeCheckoutModal();
+        };
+
+        // --- Drag & Drop Logic (Touch/Mouse) ---
+        let isDragging = false, dragClone = null, dragItemData = null, pressTimer = null;
+        const basketEl = document.getElementById('cart-basket');
         const products = document.querySelectorAll('.product');
 
         products.forEach(p => {
-            // لبدء السحب عند اللمس
             p.addEventListener('touchstart', handleDragStart, {passive: false});
             p.addEventListener('mousedown', handleDragStart);
         });
 
-        // متابعة حركة الإصبع/الماوس على مستوى الشاشة كلها
         document.addEventListener('touchmove', handleDragMove, {passive: false});
         document.addEventListener('mousemove', handleDragMove);
         document.addEventListener('touchend', handleDragEnd);
         document.addEventListener('mouseup', handleDragEnd);
 
         function handleDragStart(e) {
-            // تجنب تشغيل السحب إذا كان المستخدم ينوي فقط التمرير أفقيًا
-            // نستخدم مهلة زمنية قصيرة (Long Press) لتأكيد نية السحب
             if (e.type === 'touchstart') {
-                pressTimer = setTimeout(() => {
-                    initiateDrag(e, this);
-                }, 200); // 200ms تعتبر ضغطة معتمدة للسحب
+                pressTimer = setTimeout(() => initiateDrag(e, this), 200);
             } else {
                 initiateDrag(e, this);
                 e.preventDefault();
@@ -643,90 +575,54 @@
         function initiateDrag(e, element) {
             isDragging = true;
             dragItemData = {
-                id: element.dataset.id,
-                name: element.dataset.name,
-                price: parseInt(element.dataset.price),
-                img: element.dataset.img
+                id: element.dataset.id, name: element.dataset.name,
+                price: parseInt(element.dataset.price), img: element.dataset.img
             };
-
-            // إنشاء نسخة شفافة تتحرك مع الإصبع
             dragClone = element.cloneNode(true);
             dragClone.classList.add('drag-clone');
             document.body.appendChild(dragClone);
-            
-            if (navigator.vibrate) navigator.vibrate(20); // هزة خفيفة لإعلام المستخدم ببدء السحب
-
+            if (navigator.vibrate) navigator.vibrate(20);
             positionClone(e);
         }
 
         function handleDragMove(e) {
-            if (pressTimer) {
-                // إذا تحرك الإصبع قبل انتهاء الـ 200ms، فهذا يعني أن المستخدم يمرر الرف (Scroll)
-                clearTimeout(pressTimer);
-                pressTimer = null;
-            }
-
+            if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; }
             if (!isDragging || !dragClone) return;
-            
-            // منع التمرير التلقائي للشاشة أثناء السحب
-            if(e.cancelable) e.preventDefault(); 
+            if (e.cancelable) e.preventDefault(); 
             
             positionClone(e);
-
-            // تظليل السلة إذا كان العنصر فوقها
-            if (isOverBasket(e)) {
-                basketEl.classList.add('drag-over');
-            } else {
-                basketEl.classList.remove('drag-over');
-            }
+            isOverBasket(e) ? basketEl.classList.add('drag-over') : basketEl.classList.remove('drag-over');
         }
 
         function positionClone(e) {
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            
-            // وضع النسخة في منتصف نقطة اللمس
             dragClone.style.left = (clientX - dragClone.offsetWidth / 2) + 'px';
             dragClone.style.top = (clientY - dragClone.offsetHeight / 2) + 'px';
         }
 
         function handleDragEnd(e) {
-            if (pressTimer) {
-                clearTimeout(pressTimer);
-                pressTimer = null;
-            }
-
+            if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; }
             if (!isDragging) return;
             isDragging = false;
             basketEl.classList.remove('drag-over');
 
             if (isOverBasket(e)) {
-                // تمت الإضافة للسلة بنجاح
                 addToCart(dragItemData);
-                // تأثير حركي لاختفاء النسخة داخل السلة
                 dragClone.style.transform = 'scale(0.1)';
                 dragClone.style.opacity = '0';
                 setTimeout(() => dragClone.remove(), 200);
             } else {
-                // فشل الإفلات داخل السلة، إزالة النسخة
                 dragClone.remove();
             }
-            dragClone = null;
-            dragItemData = null;
+            dragClone = null; dragItemData = null;
         }
 
         function isOverBasket(e) {
             const clientX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
             const clientY = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
-            
             const rect = basketEl.getBoundingClientRect();
-            // التحقق مما إذا كانت الإحداثيات تقع ضمن حدود السلة
-            return (
-                clientX >= rect.left && 
-                clientX <= rect.right &&
-                clientY >= rect.top && 
-                clientY <= rect.bottom
-            );
+            return (clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom);
         }
     </script>
 </body>
