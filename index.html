@@ -7,15 +7,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* الألوان الجديدة للثيم الأبيض */
             --bg-top: #ffffff;
             --bg-bottom: #eef2f5;
-            --text-main: #1a1a2e; /* نص داكن ليكون مقروءاً على الأبيض */
+            --text-main: #1a1a2e; 
             
-            /* ألوان النيون (تم تعديلها قليلاً لتناسب الأبيض) */
             --neon-pink: #ff00de;
-            --neon-cyan: #00b8d4; /* سماوي أغمق قليلاً للوضوح */
-            --neon-green: #00a82d; /* أخضر داكن وحيوي للسعر */
+            --neon-cyan: #00b8d4; 
+            --neon-green: #00a82d; 
             
             --card-bg: #ffffff;
             --card-border: rgba(0, 0, 0, 0.08);
@@ -107,7 +105,7 @@
             text-align: center; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
             display: flex; flex-direction: column; align-items: center; justify-content: space-between;
             min-height: 175px; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* ظل خفيف على الأبيض */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
         }
         .product:hover { box-shadow: 0 0 15px rgba(255, 0, 222, 0.3); border-color: var(--neon-pink); }
         
@@ -126,13 +124,10 @@
             color: #fff; border: none; border-radius: 50%;
             width: 28px; height: 28px; font-size: 1.2rem; font-weight: bold;
             display: flex; justify-content: center; align-items: center; cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 184, 212, 0.4); 
-            transition: transform 0.15s, background 0.3s, box-shadow 0.3s; /* تأثير سلس للعداد */
-            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0, 184, 212, 0.4); transition: transform 0.15s, background 0.3s, box-shadow 0.3s; flex-shrink: 0;
         }
         .add-to-cart-btn:active { transform: scale(0.8); }
 
-        /* إضافة تنسيق لحالة العد (اللون الوردي لتمييز الزر أثناء النقر) */
         .add-to-cart-btn.counting {
             background: var(--neon-pink);
             box-shadow: 0 0 15px rgba(255, 0, 222, 0.6);
@@ -203,7 +198,6 @@
         .form-group { display: flex; flex-direction: column; gap: 5px; }
         .form-group label { color: #00899e; font-weight: bold; font-size: 0.95rem; }
         
-        /* تصميم حقول الإدخال الجديد للأبيض */
         .neon-input { background: #f4f6f9; border: 1px solid #d1d9e6; color: var(--text-main); padding: 12px; border-radius: 10px; font-size: 1rem; outline: none; transition: 0.3s; }
         .neon-input:focus { border-color: var(--neon-pink); box-shadow: 0 0 10px rgba(255, 0, 222, 0.2); background: #ffffff;}
         .neon-input option { background: #fff; color: var(--text-main); }
@@ -213,22 +207,19 @@
 </head>
 <body>
 
-    <!-- شاشة البداية -->
     <div id="start-screen" onclick="startGame()">
         <div class="start-text">اضغط للبدء</div>
         <div class="start-sub">🛒 جهّز سلتك 🛒</div>
     </div>
 
-    <!-- علامة التحديث (أبيض) -->
-    <header>⚡ متجر سترايك ⚡ <div class="version-tag">(نسخة العداد الذكي)</div></header>
+    <!-- علامة التحديث -->
+    <header>⚡ متجر سترايك ⚡ <div class="version-tag">(مُحدث - عداد سريع وتزامن)</div></header>
 
-    <!-- شريط التنقل -->
     <nav class="quick-nav" id="quick-nav"></nav>
 
     <div class="instruction">اضغط على ➕ لإضافة المنتج للسلة</div>
     <div class="store-container" id="store-container"></div>
 
-    <!-- السلة -->
     <div class="cart-basket" id="cart-basket" onclick="openCartModal()">
         <div class="cart-info">
             <span class="cart-title">سلة المشتريات</span>
@@ -237,7 +228,6 @@
         <div class="basket-icon">🛒<div class="cart-badge" id="cart-badge">0</div></div>
     </div>
 
-    <!-- نوافذ الدفع والمراجعة -->
     <div class="modal-overlay" id="cart-modal-overlay" onclick="closeModalOnBG(event, 'cart-modal-overlay')">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-header">
@@ -319,12 +309,10 @@
             document.getElementById('start-screen').classList.add('hidden');
         };
 
-        // --- دالة مساعدة لاختبار هل النص إيموجي أم ملف صورة ---
         function isImageFile(str) {
             return str.includes('.png') || str.includes('.jpg') || str.includes('.jpeg') || str.startsWith('http');
         }
 
-        // --- البيانات والواجهة ---
         const storeData = [
             { category: "شوكولاتة وبسكوت", icon: "🍫", items: [
                 { id: 1, name: "دانس", price: 15, img: "https://urdoni.jo/storage/items/Kx5d8JHF8jBL0iOqBCiUuUL2SUdlDe4FdQqrVWVL.jpg" }, 
@@ -337,7 +325,6 @@
             { category: "تسالي", icon: "🥜", items: [{ id: 64, name: "بزر عين شمس", price: 100, img: "as.png" }, { id: 65, name: "بزر ابيض", price: 100, img: "ab.png" }, { id: 66, name: "بزر اسود افغاني", price: 100, img: "af.png" }, { id: 67, name: "بزر شمام", price: 100, img: "shamam.png" }, { id: 68, name: "تسالي ماليزية صغير", price: 75, img: "far.png" }, { id: 69, name: "تسالي ماليزية كبير", price: 125, img: "far.png" }, { id: 70, name: "ايس فستق حار عائلي", price: 75, img: "iy.png" }, { id: 71, name: "بوشار طازج", price: 50, img: "bosh.png" }, { id: 72, name: "ذرة علبة صغير", price: 50, img: "crn.png" }, { id: 73, name: "ذرة علبة كبير", price: 75, img: "crn.png" }] },
             { category: "البوظة", icon: "🍦", items: [{ id: 74, name: "كف احمر", price: 10, img: "kf.png" }, { id: 75, name: "ساندوش صغير", price: 15, img: "sando.png" }, { id: 76, name: "ساندوش كبير", price: 25, img: "sando2.png" }, { id: 77, name: "قرطوس صغير", price: 50, img: "ice1.png" }, { id: 78, name: "قرطوس كبير", price: 75, img: "ice2.png" }, { id: 79, name: "علب صغير", price: 15, img: "cup1.png" }, { id: 80, name: "علب كبير", price: 50, img: "cup2.png" }, { id: 81, name: "بيانو", price: 20, img: "rep.png" }, { id: 82, name: "لولي", price: 15, img: "lol.png" }, { id: 83, name: "كاسة ثلج", price: 35, img: "ice3" }, { id: 84, name: "ميمو", price: 15, img: "spl.png" }] }
         ];
-
 
         const storeContainer = document.getElementById('store-container');
         const quickNav = document.getElementById('quick-nav');
@@ -361,7 +348,6 @@
                 
                 const iconHTML = isImageFile(item.img) ? `<img src="${item.img}" class="real-product-img" alt="${item.name}">` : item.img;
                 
-                // تمت إضافة ID لزر الإضافة لكي نستهدفه بالعداد
                 product.innerHTML = `
                     <div class="product-icon" id="icon-${item.id}">${iconHTML}</div>
                     <div class="product-name">${item.name}</div>
@@ -373,8 +359,10 @@
             sectionDiv.appendChild(shelf); storeContainer.appendChild(sectionDiv);
         });
 
-        // --- نظام السلة ---
+        // --- نظام السلة والمزامنة مع العداد ---
         let cart = [];
+        let clickCounters = {}; // ذاكرة ذكية لأزرار الإضافة
+
         function formatCurrency(q) {
             if (q >= 100) return `${Math.floor(q/100)} دينار ${q%100 === 0 ? '' : 'و '+ (q%100) +' قرش'}`;
             return `${q} قرش`;
@@ -409,13 +397,17 @@
             let idx = cart.findIndex(i => i.id == id);
             if (idx > -1) {
                 cart[idx].quantity += change;
-                if (cart[idx].quantity <= 0) cart.splice(idx, 1);
+                if (cart[idx].quantity <= 0) {
+                    cart.splice(idx, 1);
+                    clickCounters[id] = 0; // مزامنة العداد الذكي للصفر
+                } else {
+                    clickCounters[id] = cart[idx].quantity; // مزامنة العداد مع العدد الفعلي
+                }
                 updateCartUI();
             }
         };
 
-        // --- 🚀 أنيميشن الطيران والعداد الذكي 🚀 ---
-        let clickCounters = {};
+        // --- 🚀 أنيميشن الطيران والعداد الذكي المحدث 🚀 ---
         let clickTimers = {};
 
         window.animateToCart = function(event, itemData, iconId) {
@@ -424,7 +416,7 @@
             // --- منطق العداد الذكي للزر ---
             const btn = document.getElementById('btn-' + itemData.id);
             
-            // زيادة العداد
+            // حفظ الرقم القديم (أو القراءة من السلة مباشرة لضمان عدم وجود أخطاء)
             if (!clickCounters[itemData.id]) clickCounters[itemData.id] = 0;
             clickCounters[itemData.id]++;
             
@@ -436,15 +428,14 @@
             btn.style.transform = 'scale(1.2)';
             setTimeout(() => { btn.style.transform = 'scale(1)'; }, 150);
 
-            // تصفير المؤقت الزمني إذا ضغط مرة أخرى قبل انتهاء الـ 5 ثواني
+            // تصفير المؤقت الزمني لضمان اختفاء الرقم بعد ثانيتين فقط من آخر ضغطة
             if (clickTimers[itemData.id]) clearTimeout(clickTimers[itemData.id]);
             
-            // ضبط مؤقت جديد لـ 5 ثواني (5000 ملي ثانية)
             clickTimers[itemData.id] = setTimeout(() => {
                 btn.innerText = '+';
                 btn.classList.remove('counting');
-                clickCounters[itemData.id] = 0; // تصفير العداد الوهمي للزر
-            }, 5000);
+                // لاحظ: لم نقم بتصفير clickCounters هنا، لكي يكمل العد عند الضغط مرة أخرى!
+            }, 2000); 
             // ---------------------------------
 
             playSound('pop'); 
@@ -528,7 +519,10 @@
             const total = formatCurrency(cart.reduce((s, i) => s + (i.price * i.quantity), 0));
             alert(`🎉 تم تأكيد طلبك بنجاح!\nالمبلغ: ${total}`);
             
-            cart = []; updateCartUI(); closeCheckoutModal();
+            cart = []; 
+            clickCounters = {}; // تصفير كل العدادات عند إتمام الطلب بنجاح
+            updateCartUI(); 
+            closeCheckoutModal();
         };
     </script>
 </body>
