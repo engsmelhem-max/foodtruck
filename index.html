@@ -14,6 +14,7 @@
             --neon-pink: #ff00de;
             --neon-cyan: #00b8d4; 
             --neon-green: #00a82d; 
+            --neon-red: #ff4d4d; /* لون أحمر لأزرار الحذف */
             
             --card-bg: #ffffff;
             --card-border: rgba(0, 0, 0, 0.08);
@@ -194,6 +195,21 @@
         .qty-btn { background: none; border: none; color: #00899e; font-size: 1.5rem; font-weight: bold; cursor: pointer; padding: 0 5px; }
         .qty-number { font-weight: bold; font-size: 1.1rem; width: 20px; text-align: center; color: var(--text-main); }
 
+        /* أزرار الحذف السريع وإفراغ السلة */
+        .delete-item-btn {
+            background: rgba(255, 77, 77, 0.1); border: 1px solid var(--neon-red); color: var(--neon-red);
+            border-radius: 50%; width: 32px; height: 32px; font-size: 1rem;
+            display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s;
+        }
+        .delete-item-btn:hover { background: var(--neon-red); color: #fff; box-shadow: 0 0 10px rgba(255, 77, 77, 0.4); }
+
+        .clear-cart-btn {
+            background: transparent; color: var(--neon-red); border: 1px solid var(--neon-red);
+            padding: 10px; border-radius: 10px; font-weight: bold; font-size: 1rem; cursor: pointer;
+            width: 100%; transition: 0.3s; margin-top: 10px; display: flex; justify-content: center; align-items: center; gap: 5px;
+        }
+        .clear-cart-btn:hover { background: rgba(255, 77, 77, 0.1); box-shadow: 0 0 10px rgba(255, 77, 77, 0.2); }
+
         .checkout-form { display: flex; flex-direction: column; gap: 15px; overflow-y: auto;}
         .form-group { display: flex; flex-direction: column; gap: 5px; }
         .form-group label { color: #00899e; font-weight: bold; font-size: 0.95rem; }
@@ -202,7 +218,7 @@
         .neon-input:focus { border-color: var(--neon-pink); box-shadow: 0 0 10px rgba(255, 0, 222, 0.2); background: #ffffff;}
         .neon-input option { background: #fff; color: var(--text-main); }
         
-        .primary-btn { background: linear-gradient(45deg, var(--neon-pink), var(--neon-cyan)); border: none; padding: 15px; border-radius: 15px; color: white; font-size: 1.2rem; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(255, 0, 222, 0.3); margin-top: 10px; }
+        .primary-btn { background: linear-gradient(45deg, var(--neon-pink), var(--neon-cyan)); border: none; padding: 15px; border-radius: 15px; color: white; font-size: 1.2rem; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(255, 0, 222, 0.3); margin-top: 10px; width: 100%; }
     </style>
 </head>
 <body>
@@ -213,7 +229,7 @@
     </div>
 
     <!-- علامة التحديث -->
-    <header>⚡ متجر سترايك ⚡ <div class="version-tag">(مُحدث - عداد سريع وتزامن)</div></header>
+    <header>⚡ متجر سترايك ⚡ <div class="version-tag">(مُحدث - الحذف السريع وتفريغ السلة)</div></header>
 
     <nav class="quick-nav" id="quick-nav"></nav>
 
@@ -235,7 +251,10 @@
                 <button class="close-btn" onclick="closeCartModal()">&times;</button>
             </div>
             <div class="cart-items-list" id="cart-items-list"></div>
-            <button class="primary-btn" onclick="proceedToCheckout()">المتابعة للطلب (<span id="modal-total">0</span>)</button>
+            <!-- تم تجميع أزرار السلة هنا -->
+            <div id="cart-action-buttons">
+                <button class="primary-btn" onclick="proceedToCheckout()">المتابعة للطلب (<span id="modal-total">0</span>)</button>
+            </div>
         </div>
     </div>
 
@@ -270,7 +289,6 @@
     </div>
 
     <script>
-        // --- نظام الصوت ---
         let audioCtx;
         function initAudio() {
             if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -323,7 +341,7 @@
             { category: "مشروبات باردة", icon: "🥤", items: [{ id: 32, name: "ماتركس كولا", price: 35, img: "mat.png" }, { id: 33, name: "ماتركس ميرندا", price: 35, img: "omat.png" }, { id: 34, name: "ماتركس سفن", price: 35, img: "smat.png" }, { id: 35, name: "ماتركس تفاح", price: 35, img: "amat.png" }, { id: 36, name: "ماتركس احمر", price: 35, img: "fmat.png" }, { id: 37, name: "ماتركس حمضيات", price: 35, img: "lmat.png" }, { id: 38, name: "قهوة لونا باردة", price: 65, img: "lu.png" }, { id: 39, name: "راز طاقة", price: 50, img: "rz.png" }, { id: 40, name: "بوم بوم طاقة", price: 100, img: "bo.png" }, { id: 41, name: "سوبر", price: 50, img: "sbr.png" }, { id: 42, name: "عصير دانس", price: 15, img: "dc.png" }, { id: 43, name: "عصير صن توب صغير", price: 25, img: "st.png" }, { id: 44, name: "عصير صن توب كبير", price: 35, img: "st.png" }, { id: 45, name: "حليب نادك اطفال", price: 25, img: "na.png" }, { id: 46, name: "حليب بلدنا كبار", price: 65, img: "bl.png" }, { id: 47, name: "انيرجوي طاقة", price: 40, img: "ej.png" }, { id: 48, name: "ماء كبير", price: 50, img: "wat.png" }, { id: 49, name: "ماء صغير", price: 35, img: "wat.png" }] },
             { category: "شيبس", icon: "🍟", items: [{ id: 50, name: "تشيزرز", price: 15, img: "chz.png" }, { id: 51, name: "تشيزي", price: 15, img: "cze.png" }, { id: 52, name: "بوشار", price: 15, img: "pop.png" }, { id: 53, name: "زوم اخضر", price: 15, img: "zom2.png" }, { id: 54, name: "زوم احمر", price: 15, img: "zom.png" }, { id: 55, name: "بينغ رينغ", price: 15, img: "br.png" }, { id: 56, name: "هلا بطاطا", price: 15, img: "hla.png" }, { id: 57, name: "كتكو نايس بطاطا", price: 15, img: "nc.png" }, { id: 58, name: "ريلاكس", price: 15, img: "rx.png" }, { id: 59, name: "بفاك فول سوداني", price: 15, img: "bk.png" }, { id: 60, name: "جولدي", price: 15, img: "gld.png" }, { id: 61, name: "بوكس وسط", price: 40, img: "box.png" }, { id: 62, name: "سناك مكس وسط", price: 60, img: "sm.png" }, { id: 63, name: "بوشار وسط", price: 50, img: "pop2.png" }] },
             { category: "تسالي", icon: "🥜", items: [{ id: 64, name: "بزر عين شمس", price: 100, img: "as.png" }, { id: 65, name: "بزر ابيض", price: 100, img: "ab.png" }, { id: 66, name: "بزر اسود افغاني", price: 100, img: "af.png" }, { id: 67, name: "بزر شمام", price: 100, img: "shamam.png" }, { id: 68, name: "تسالي ماليزية صغير", price: 75, img: "far.png" }, { id: 69, name: "تسالي ماليزية كبير", price: 125, img: "far.png" }, { id: 70, name: "ايس فستق حار عائلي", price: 75, img: "iy.png" }, { id: 71, name: "بوشار طازج", price: 50, img: "bosh.png" }, { id: 72, name: "ذرة علبة صغير", price: 50, img: "crn.png" }, { id: 73, name: "ذرة علبة كبير", price: 75, img: "crn.png" }] },
-            { category: "البوظة", icon: "🍦", items: [{ id: 74, name: "كف احمر", price: 10, img: "kf.png" }, { id: 75, name: "ساندوش صغير", price: 15, img: "sando.png" }, { id: 76, name: "ساندوش كبير", price: 25, img: "sando2.png" }, { id: 77, name: "قرطوس صغير", price: 50, img: "ice1.png" }, { id: 78, name: "قرطوس كبير", price: 75, img: "ice2.png" }, { id: 79, name: "علب صغير", price: 15, img: "cup1.png" }, { id: 80, name: "علب كبير", price: 50, img: "cup2.png" }, { id: 81, name: "بيانو", price: 20, img: "rep.png" }, { id: 82, name: "لولي", price: 15, img: "lol.png" }, { id: 83, name: "كاسة ثلج", price: 35, img: "ice3.png" }, { id: 84, name: "ميمو", price: 15, img: "spl.png" }] }
+            { category: "البوظة", icon: "🍦", items: [{ id: 74, name: "كف احمر", price: 10, img: "kf.png" }, { id: 75, name: "ساندوش صغير", price: 15, img: "sando.png" }, { id: 76, name: "ساندوش كبير", price: 25, img: "sando2.png" }, { id: 77, name: "قرطوس صغير", price: 50, img: "ice1.png" }, { id: 78, name: "قرطوس كبير", price: 75, img: "ice2.png" }, { id: 79, name: "علب صغير", price: 15, img: "cup1.png" }, { id: 80, name: "علب كبير", price: 50, img: "cup2.png" }, { id: 81, name: "بيانو", price: 20, img: "rep.png" }, { id: 82, name: "لولي", price: 15, img: "lol.png" }, { id: 83, name: "كاسة ثلج", price: 35, img: "ice3" }, { id: 84, name: "ميمو", price: 15, img: "spl.png" }] }
         ];
 
         const storeContainer = document.getElementById('store-container');
@@ -359,9 +377,8 @@
             sectionDiv.appendChild(shelf); storeContainer.appendChild(sectionDiv);
         });
 
-        // --- نظام السلة والمزامنة مع العداد ---
         let cart = [];
-        let clickCounters = {}; // ذاكرة ذكية لأزرار الإضافة
+        let clickCounters = {}; 
 
         function formatCurrency(q) {
             if (q >= 100) return `${Math.floor(q/100)} دينار ${q%100 === 0 ? '' : 'و '+ (q%100) +' قرش'}`;
@@ -375,22 +392,39 @@
             document.getElementById('cart-badge').innerText = cart.reduce((s, i) => s + i.quantity, 0);
 
             const cartList = document.getElementById('cart-items-list');
+            const actionButtons = document.getElementById('cart-action-buttons');
+            
             cartList.innerHTML = '';
-            if (cart.length === 0) cartList.innerHTML = '<p style="text-align:center; color:#888; margin-top:20px;">السلة فارغة حالياً</p>';
-            else cart.forEach(item => {
-                const cartIconHTML = isImageFile(item.img) ? `<img src="${item.img}" class="cart-real-img" alt="${item.name}">` : item.img;
+            
+            if (cart.length === 0) {
+                cartList.innerHTML = '<p style="text-align:center; color:#888; margin-top:20px;">السلة فارغة حالياً</p>';
+                // إخفاء زر الإفراغ وإبقاء زر المتابعة
+                actionButtons.innerHTML = `<button class="primary-btn" onclick="proceedToCheckout()">المتابعة للطلب (<span id="modal-total">0 قرش</span>)</button>`;
+            } else {
+                cart.forEach(item => {
+                    const cartIconHTML = isImageFile(item.img) ? `<img src="${item.img}" class="cart-real-img" alt="${item.name}">` : item.img;
 
-                cartList.innerHTML += `
-                    <div class="cart-item">
-                        <div class="item-details"><span style="font-size:1.5rem; display:flex;">${cartIconHTML}</span> 
-                        <div><div style="font-weight:bold; color: var(--text-main);">${item.name}</div><div style="color:var(--neon-green); font-size:0.9rem;">${item.price} قرش للحبة</div></div></div>
-                        <div class="qty-controls">
-                            <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
-                            <span class="qty-number">${item.quantity}</span>
-                            <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
-                        </div>
-                    </div>`;
-            });
+                    cartList.innerHTML += `
+                        <div class="cart-item">
+                            <div class="item-details"><span style="font-size:1.5rem; display:flex;">${cartIconHTML}</span> 
+                            <div><div style="font-weight:bold; color: var(--text-main);">${item.name}</div><div style="color:var(--neon-green); font-size:0.9rem;">${item.price} قرش للحبة</div></div></div>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <div class="qty-controls">
+                                    <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+                                    <span class="qty-number">${item.quantity}</span>
+                                    <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
+                                </div>
+                                <button class="delete-item-btn" onclick="removeItemFromCart(${item.id})" title="إزالة المنتج بالكامل">🗑️</button>
+                            </div>
+                        </div>`;
+                });
+                
+                // إظهار زر الإفراغ مع زر المتابعة
+                actionButtons.innerHTML = `
+                    <button class="clear-cart-btn" onclick="clearFullCart()">🗑️ إفراغ السلة بالكامل</button>
+                    <button class="primary-btn" onclick="proceedToCheckout()">المتابعة للطلب (<span id="modal-total">${formatCurrency(totalQirsh)}</span>)</button>
+                `;
+            }
         }
 
         window.changeQty = function(id, change) {
@@ -399,44 +433,57 @@
                 cart[idx].quantity += change;
                 if (cart[idx].quantity <= 0) {
                     cart.splice(idx, 1);
-                    clickCounters[id] = 0; // مزامنة العداد الذكي للصفر
+                    clickCounters[id] = 0; 
                 } else {
-                    clickCounters[id] = cart[idx].quantity; // مزامنة العداد مع العدد الفعلي
+                    clickCounters[id] = cart[idx].quantity; 
                 }
                 updateCartUI();
             }
         };
 
-        // --- 🚀 أنيميشن الطيران والعداد الذكي المحدث 🚀 ---
+        // --- دالة الحذف السريع لمنتج معين ---
+        window.removeItemFromCart = function(id) {
+            let idx = cart.findIndex(i => i.id == id);
+            if (idx > -1) {
+                cart.splice(idx, 1);
+                clickCounters[id] = 0; // تصفير العداد الذكي
+                updateCartUI();
+                playSound('pop'); 
+            }
+        };
+
+        // --- دالة إفراغ السلة بالكامل ---
+        window.clearFullCart = function() {
+            if (confirm("هل أنت متأكد من تفريغ السلة بالكامل؟")) {
+                cart = [];
+                clickCounters = {}; // تصفير جميع العدادات
+                updateCartUI();
+                playSound('pop');
+            }
+        };
+
         let clickTimers = {};
 
         window.animateToCart = function(event, itemData, iconId) {
             event.preventDefault();
             
-            // --- منطق العداد الذكي للزر ---
             const btn = document.getElementById('btn-' + itemData.id);
             
-            // حفظ الرقم القديم (أو القراءة من السلة مباشرة لضمان عدم وجود أخطاء)
             if (!clickCounters[itemData.id]) clickCounters[itemData.id] = 0;
             clickCounters[itemData.id]++;
             
-            // تحديث شكل ومحتوى الزر
             btn.innerText = clickCounters[itemData.id];
             btn.classList.add('counting');
             
-            // حركة نبض بسيطة للزر عند النقر
             btn.style.transform = 'scale(1.2)';
             setTimeout(() => { btn.style.transform = 'scale(1)'; }, 150);
 
-            // تصفير المؤقت الزمني لضمان اختفاء الرقم بعد ثانيتين فقط من آخر ضغطة
             if (clickTimers[itemData.id]) clearTimeout(clickTimers[itemData.id]);
             
             clickTimers[itemData.id] = setTimeout(() => {
                 btn.innerText = '+';
                 btn.classList.remove('counting');
-                // لاحظ: لم نقم بتصفير clickCounters هنا، لكي يكمل العد عند الضغط مرة أخرى!
             }, 2000); 
-            // ---------------------------------
 
             playSound('pop'); 
 
@@ -490,7 +537,6 @@
             }, 600);
         };
 
-        // --- النوافذ المنبثقة ---
         window.openCartModal = () => document.getElementById('cart-modal-overlay').style.display = 'flex';
         window.closeCartModal = () => document.getElementById('cart-modal-overlay').style.display = 'none';
         
@@ -520,7 +566,7 @@
             alert(`🎉 تم تأكيد طلبك بنجاح!\nالمبلغ: ${total}`);
             
             cart = []; 
-            clickCounters = {}; // تصفير كل العدادات عند إتمام الطلب بنجاح
+            clickCounters = {}; 
             updateCartUI(); 
             closeCheckoutModal();
         };
