@@ -227,8 +227,7 @@
         <div class="start-sub">🛒 جهّز سلتك 🛒</div>
     </div>
 
-    <!-- علامة التحديث -->
-    <header>⚡ متجر سترايك ⚡ <div class="version-tag">(تم ربط جدول جوجل)</div></header>
+    <header>⚡ متجر سترايك ⚡ <div class="version-tag">(متصل بجوجل بنجاح ✅)</div></header>
 
     <nav class="quick-nav" id="quick-nav"></nav>
 
@@ -545,6 +544,7 @@
         window.closeCheckoutModal = () => document.getElementById('checkout-modal-overlay').style.display = 'none';
         window.closeModalOnBG = (e, id) => { if (e.target.id === id) document.getElementById(id).style.display = 'none'; };
 
+        // التحديث الجديد: إرسال الطلب إلى Google Sheets
         window.submitOrder = function(e) {
             e.preventDefault();
             const phone = document.getElementById('cust-phone').value;
@@ -577,7 +577,8 @@
             submitBtn.innerText = "جاري إرسال الطلب... ⏳";
             submitBtn.disabled = true;
 
-            const scriptURL = "https://script.google.com/macros/s/AKfycbwGnEFkpEPdMKfbFdCEeGvOgcvRngPBkee3O7SS74OdtSEfwEet7NcOgg2T79kbF-sp/exec";
+            // --- الرابط الجديد الذي أرسلته ---
+            const scriptURL = "https://script.google.com/macros/s/AKfycbwSGA_IIdn4AHUx0n95m6GuedC2rzZ_bj1_p6c64nhmXMlNgiZyzkU0XtRJV-PRdfEO/exec";
 
             fetch(scriptURL, {
                 method: 'POST',
