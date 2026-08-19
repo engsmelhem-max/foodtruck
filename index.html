@@ -551,6 +551,7 @@
         window.closeCheckoutModal = () => document.getElementById('checkout-modal-overlay').style.display = 'none';
         window.closeModalOnBG = (e, id) => { if (e.target.id === id) document.getElementById(id).style.display = 'none'; };
 
+        // التحديث الجديد: إرسال الطلب إلى Google Sheets والتليجرام
         window.submitOrder = function(e) {
             e.preventDefault();
             const phone = document.getElementById('cust-phone').value;
@@ -583,8 +584,8 @@
             submitBtn.innerText = "جاري إرسال الطلب... ⏳";
             submitBtn.disabled = true;
 
-            // --- الرابط الأخير الذي أرسلته لتليجرام وجوجل شيت ---
-            const scriptURL = "https://script.google.com/macros/s/AKfycbxfvwis2qJppdGUVoYLe1ydIQZ_1dnynlzryB3eLJP_Of5cVXVhNOxlJY17atqS0xXe/exec";
+            // --- الرابط النهائي بعد تحديث التوكن والصلاحيات ---
+            const scriptURL = "https://script.google.com/macros/s/AKfycbxTXx3NpLji0uVIR4Fo_KGzYeg2ARv51VvWBiIb0tC3hS0-ceXoV7zBRybCkSeBCP-e/exec";
 
             fetch(scriptURL, {
                 method: 'POST',
