@@ -228,7 +228,7 @@
     </div>
 
     <!-- علامة التحديث -->
-    <header>⚡ متجر سترايك ⚡ <div class="version-tag">(مُحدث - دعم الأرقام العربية)</div></header>
+    <header>⚡ متجر سترايك ⚡ <div class="version-tag">(متصل بجوجل وتليجرام ✅)</div></header>
 
     <nav class="quick-nav" id="quick-nav"></nav>
 
@@ -269,7 +269,6 @@
                 </div>
                 <div class="form-group">
                     <label>رقم الهاتف (يجب أن يبدأ بـ 07)</label>
-                    <!-- تم تعديل oninput هنا لاستدعاء دالة التحويل الذكية -->
                     <input type="tel" id="cust-phone" class="neon-input" required pattern="^07[0-9]{8}$" maxlength="10" placeholder="مثال: 0791234567" oninput="formatPhoneNumber(this)">
                 </div>
                 <div class="form-group">
@@ -330,12 +329,9 @@
             return str.includes('.png') || str.includes('.jpg') || str.includes('.jpeg') || str.startsWith('http');
         }
 
-        // --- دالة تحويل الأرقام العربية إلى إنجليزية ---
         window.formatPhoneNumber = function(input) {
             let val = input.value;
-            // استبدال الأرقام العربية (٠-٩) بما يقابلها من الإنجليزية (0-9)
             val = val.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
-            // إزالة أي شيء ليس رقماً إنجليزياً (للحماية)
             input.value = val.replace(/[^0-9]/g, '');
         };
 
@@ -587,7 +583,8 @@
             submitBtn.innerText = "جاري إرسال الطلب... ⏳";
             submitBtn.disabled = true;
 
-            const scriptURL = "https://script.google.com/macros/s/AKfycbwSGA_IIdn4AHUx0n95m6GuedC2rzZ_bj1_p6c64nhmXMlNgiZyzkU0XtRJV-PRdfEO/exec";
+            // --- الرابط الأخير الذي أرسلته لتليجرام وجوجل شيت ---
+            const scriptURL = "https://script.google.com/macros/s/AKfycbxfvwis2qJppdGUVoYLe1ydIQZ_1dnynlzryB3eLJP_Of5cVXVhNOxlJY17atqS0xXe/exec";
 
             fetch(scriptURL, {
                 method: 'POST',
