@@ -14,7 +14,7 @@
             --neon-pink: #ff00de;
             --neon-cyan: #00b8d4; 
             --neon-green: #00a82d; 
-            --neon-red: #ff4d4d; /* لون أحمر لأزرار الحذف */
+            --neon-red: #ff4d4d; 
             
             --card-bg: #ffffff;
             --card-border: rgba(0, 0, 0, 0.08);
@@ -229,7 +229,7 @@
     </div>
 
     <!-- علامة التحديث -->
-    <header>⚡ متجر سترايك ⚡ <div class="version-tag">(مُحدث - الحذف السريع وتفريغ السلة)</div></header>
+    <header>⚡ متجر سترايك ⚡ <div class="version-tag">(مُحدث - ربط الطلبات بجوجل شيت)</div></header>
 
     <nav class="quick-nav" id="quick-nav"></nav>
 
@@ -251,7 +251,6 @@
                 <button class="close-btn" onclick="closeCartModal()">&times;</button>
             </div>
             <div class="cart-items-list" id="cart-items-list"></div>
-            <!-- تم تجميع أزرار السلة هنا -->
             <div id="cart-action-buttons">
                 <button class="primary-btn" onclick="proceedToCheckout()">المتابعة للطلب (<span id="modal-total">0</span>)</button>
             </div>
@@ -333,7 +332,7 @@
 
         const storeData = [
             { category: "شوكولاتة وبسكوت", icon: "🍫", items: [
-                { id: 1, name: "دانس", price: 15, img: "dnc.png" }, 
+                { id: 1, name: "دانس", price: 15, img: "https://urdoni.jo/storage/items/Kx5d8JHF8jBL0iOqBCiUuUL2SUdlDe4FdQqrVWVL.jpg" }, 
                 { id: 2, name: "اوه بوي", price: 15, img: "ob.png" }, 
                 { id: 3, name: "جوردينا 3 قطع", price: 15, img: "jordina3.png" }, 
                 { id: 4, name: "جوردينا سويس رول", price: 15, img: "sr.png" }, { id: 5, name: "دريم", price: 15, img: "dream.png" }, { id: 6, name: "جراندي كيك", price: 15, img: "grandi.png" }, { id: 7, name: "مولتو صغير", price: 15, img: "molto.png" }, { id: 8, name: "مولتو كبير", price: 60, img: "mxl.png" }, { id: 9, name: "بسكوت مالح", price: 15, img: "salt.png" }, { id: 10, name: "بريك سمر", price: 15, img: "smr.png" }, { id: 11, name: "بريك داي", price: 15, img: "bd.png" }, { id: 12, name: "بريك سوبا", price: 15, img: "bso.png" }, { id: 13, name: "بريك هابي", price: 15, img: "bh.png" }, { id: 14, name: "بريك ديلايتس", price: 15, img: "bde.png" }, { id: 15, name: "تويست", price: 15, img: "tw.png" }, { id: 16, name: "لافيتا", price: 15, img: "la.png" }, { id: 17, name: "كناري", price: 15, img: "ca.png" }, { id: 18, name: "تصبيرة جبنة", price: 50, img: "co.png" }, { id: 19, name: "تصبيرة شوكولاته", price: 50, img: "co.png" }, { id: 20, name: "روبي", price: 15, img: "ru.png" }, { id: 21, name: "الاسكا", price: 10, img: "ak.png" }, { id: 22, name: "جوردينا كب كيك", price: 15, img: "ck.png" }, { id: 23, name: "جوردينا وافل", price: 15, img: "wf.png" }, { id: 85, name: "جونيور كيك", price: 15, img: "jr.png" }, { id: 86, name: "بسكوت زبدة", price: 15, img: "butter.png" }] },
@@ -398,7 +397,6 @@
             
             if (cart.length === 0) {
                 cartList.innerHTML = '<p style="text-align:center; color:#888; margin-top:20px;">السلة فارغة حالياً</p>';
-                // إخفاء زر الإفراغ وإبقاء زر المتابعة
                 actionButtons.innerHTML = `<button class="primary-btn" onclick="proceedToCheckout()">المتابعة للطلب (<span id="modal-total">0 قرش</span>)</button>`;
             } else {
                 cart.forEach(item => {
@@ -419,7 +417,6 @@
                         </div>`;
                 });
                 
-                // إظهار زر الإفراغ مع زر المتابعة
                 actionButtons.innerHTML = `
                     <button class="clear-cart-btn" onclick="clearFullCart()">🗑️ إفراغ السلة بالكامل</button>
                     <button class="primary-btn" onclick="proceedToCheckout()">المتابعة للطلب (<span id="modal-total">${formatCurrency(totalQirsh)}</span>)</button>
@@ -441,22 +438,20 @@
             }
         };
 
-        // --- دالة الحذف السريع لمنتج معين ---
         window.removeItemFromCart = function(id) {
             let idx = cart.findIndex(i => i.id == id);
             if (idx > -1) {
                 cart.splice(idx, 1);
-                clickCounters[id] = 0; // تصفير العداد الذكي
+                clickCounters[id] = 0; 
                 updateCartUI();
                 playSound('pop'); 
             }
         };
 
-        // --- دالة إفراغ السلة بالكامل ---
         window.clearFullCart = function() {
             if (confirm("هل أنت متأكد من تفريغ السلة بالكامل؟")) {
                 cart = [];
-                clickCounters = {}; // تصفير جميع العدادات
+                clickCounters = {}; 
                 updateCartUI();
                 playSound('pop');
             }
@@ -551,24 +546,70 @@
         window.closeCheckoutModal = () => document.getElementById('checkout-modal-overlay').style.display = 'none';
         window.closeModalOnBG = (e, id) => { if (e.target.id === id) document.getElementById(id).style.display = 'none'; };
 
+        // التحديث الجديد: إرسال الطلب إلى Google Sheets
         window.submitOrder = function(e) {
             e.preventDefault();
             const phone = document.getElementById('cust-phone').value;
             if (!/^07\d{8}$/.test(phone)) return alert("يرجى التأكد من أن رقم الهاتف يتكون من 10 أرقام ويبدأ بـ 07");
 
-            localStorage.setItem('st_name', document.getElementById('cust-name').value);
+            const name = document.getElementById('cust-name').value;
+            const location = document.getElementById('cust-location').value;
+            const submitBtn = document.querySelector('#checkout-form .primary-btn');
+
+            // حفظ بيانات الزبون
+            localStorage.setItem('st_name', name);
             localStorage.setItem('st_phone', phone);
-            localStorage.setItem('st_loc', document.getElementById('cust-location').value);
+            localStorage.setItem('st_loc', location);
 
-            playSound('success');
+            // تجميع تفاصيل الطلب
+            let orderDetailsText = "";
+            cart.forEach(item => {
+                orderDetailsText += `- ${item.name} (العدد: ${item.quantity})\n`;
+            });
 
-            const total = formatCurrency(cart.reduce((s, i) => s + (i.price * i.quantity), 0));
-            alert(`🎉 تم تأكيد طلبك بنجاح!\nالمبلغ: ${total}`);
-            
-            cart = []; 
-            clickCounters = {}; 
-            updateCartUI(); 
-            closeCheckoutModal();
+            const totalQirsh = cart.reduce((s, i) => s + (i.price * i.quantity), 0);
+            const totalText = formatCurrency(totalQirsh);
+
+            // البيانات التي سيتم إرسالها لجوجل
+            const orderData = {
+                name: name,
+                phone: phone,
+                location: location,
+                total: totalText,
+                orderDetails: orderDetailsText
+            };
+
+            // تغيير شكل الزر لإعلام المستخدم بأن الإرسال جاري
+            submitBtn.innerText = "جاري إرسال الطلب... ⏳";
+            submitBtn.disabled = true;
+
+            // --- رابط Google Sheets الخاص بك ---
+            const scriptURL = "https://script.google.com/macros/s/AKfycbwGnEFkpEPdMKfbFdCEeGvOgcvRngPBkee3O7SS74OdtSEfwEet7NcOgg2T79kbF-sp/exec";
+
+            fetch(scriptURL, {
+                method: 'POST',
+                body: JSON.stringify(orderData),
+                mode: 'no-cors' // لمنع مشاكل الحماية في المتصفحات
+            })
+            .then(response => {
+                playSound('success');
+                alert(`🎉 تم تأكيد طلبك بنجاح!\nالمبلغ: ${totalText}`);
+                
+                // إعادة الزر لشكله الطبيعي وتصفير السلة
+                submitBtn.innerText = "تأكيد الطلب النهائي ✅";
+                submitBtn.disabled = false;
+                
+                cart = []; 
+                clickCounters = {}; 
+                updateCartUI(); 
+                closeCheckoutModal();
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                alert("حدث خطأ في الإرسال، يرجى المحاولة مرة أخرى.");
+                submitBtn.innerText = "تأكيد الطلب النهائي ✅";
+                submitBtn.disabled = false;
+            });
         };
     </script>
 </body>
