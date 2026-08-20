@@ -228,7 +228,7 @@
     </div>
 
     <!-- علامة التحديث -->
-    <header>⚡ متجر سترايك ⚡ <div class="version-tag">(نظام الطلبات مفعل 🚀)</div></header>
+    <header>⚡ متجر سترايك ⚡ <div class="version-tag">(متصل بجوجل وتليجرام ✅)</div></header>
 
     <nav class="quick-nav" id="quick-nav"></nav>
 
@@ -551,7 +551,7 @@
         window.closeCheckoutModal = () => document.getElementById('checkout-modal-overlay').style.display = 'none';
         window.closeModalOnBG = (e, id) => { if (e.target.id === id) document.getElementById(id).style.display = 'none'; };
 
-        // التحديث الجديد: إرسال الطلب إلى Google Sheets والتليجرام
+        // التحديث الجديد: إرسال الطلب إلى Google Sheets والتليجرام بالرابط النهائي
         window.submitOrder = function(e) {
             e.preventDefault();
             const phone = document.getElementById('cust-phone').value;
@@ -584,8 +584,8 @@
             submitBtn.innerText = "جاري إرسال الطلب... ⏳";
             submitBtn.disabled = true;
 
-            // --- الرابط الأخير الذي أرسلته لتليجرام وجوجل شيت ---
-            const scriptURL = "https://script.google.com/macros/s/AKfycbw2hUOyAP4Q4IW8X0TUNuMuWZ-PYGPC1_7wXyh85qfOYORvIByPeH8-HbKaTD_bgQjM/exec";
+            // --- الرابط الأخير الذي أرسلته ---
+            const scriptURL = "https://script.google.com/macros/s/AKfycbyZfHkogptmvr5XxGz8uMM8oceOAcf4GaYA6bj-yPU8BmqMcBbg47jNGVdEdv4rXgJD/exec";
 
             fetch(scriptURL, {
                 method: 'POST',
