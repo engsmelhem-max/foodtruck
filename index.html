@@ -215,6 +215,14 @@
         @keyframes blink-hint { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
         .cart-total { color: var(--neon-green); font-weight: 900; font-size: 1.1rem; }
+        
+        .free-delivery-badge {
+            font-size: 0.8rem;
+            color: var(--neon-pink);
+            display: inline-block;
+            margin-right: 5px;
+        }
+
         .basket-icon { font-size: 2.5rem; position: relative; }
         .cart-badge {
             position: absolute; top: -5px; right: -5px; background: var(--neon-cyan); color: #fff;
@@ -272,7 +280,7 @@
         .neon-input:focus { border-color: var(--neon-pink); box-shadow: 0 0 10px rgba(255, 0, 222, 0.2); background: #ffffff;}
         .neon-input option { background: #fff; color: var(--text-main); }
         
-        .primary-btn { background: linear-gradient(45deg, var(--neon-pink), var(--neon-cyan)); border: none; padding: 15px; border-radius: 15px; color: white; font-size: 1.2rem; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(255, 0, 222, 0.3); margin-top: 10px; width: 100%; }
+        .primary-btn { background: linear-gradient(45deg, var(--neon-pink), var(--neon-cyan)); border: none; padding: 15px; border-radius: 15px; color: white; font-size: 1.1rem; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(255, 0, 222, 0.3); margin-top: 10px; width: 100%; }
 
         /* تنسيقات رسالة النجاح والخطأ */
         .success-checkmark { font-size: 4rem; margin-bottom: 10px; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
@@ -312,7 +320,7 @@
         <div class="cart-info">
             <span class="cart-title">سلة المشتريات</span>
             <span class="checkout-hint">اضغط هنا لإتمام الطلب 👆</span>
-            <span class="cart-total" id="cart-total-display">0 قرش</span>
+            <span class="cart-total"><span id="cart-total-display">0 قرش</span> <span class="free-delivery-badge">(التوصيل مجاني 🛵)</span></span>
         </div>
         <div class="basket-icon">🛒<div class="cart-badge" id="cart-badge">0</div></div>
     </div>
@@ -325,6 +333,7 @@
             </div>
             <div class="cart-items-list" id="cart-items-list"></div>
             <div id="cart-action-buttons">
+                <!-- هذا الزر سيتم تحديثه برمجياً لإضافة السعر والتوصيل المجاني -->
                 <button class="primary-btn" onclick="proceedToCheckout()">المتابعة للطلب (<span id="modal-total">0</span>)</button>
             </div>
         </div>
@@ -504,7 +513,6 @@
         function updateCartUI() {
             const totalQirsh = cart.reduce((s, i) => s + (i.price * i.quantity), 0);
             document.getElementById('cart-total-display').innerText = formatCurrency(totalQirsh);
-            document.getElementById('modal-total').innerText = formatCurrency(totalQirsh);
             document.getElementById('cart-badge').innerText = cart.reduce((s, i) => s + i.quantity, 0);
 
             const cartList = document.getElementById('cart-items-list');
@@ -514,7 +522,7 @@
             
             if (cart.length === 0) {
                 cartList.innerHTML = '<p style="text-align:center; color:#888; margin-top:20px;">السلة فارغة حالياً</p>';
-                actionButtons.innerHTML = `<button class="primary-btn" onclick="proceedToCheckout()">المتابعة للطلب (<span id="modal-total">0 قرش</span>)</button>`;
+                actionButtons.innerHTML = `<button class="primary-btn" onclick="proceedToCheckout()">إتمام الطلب (<span id="modal-total">0 قرش</span>) + توصيل مجاني 🛵</button>`;
             } else {
                 cart.forEach(item => {
                     const cartIconHTML = isImageFile(item.img) ? `<img src="${item.img}" class="cart-real-img" alt="${item.name}">` : item.img;
@@ -534,9 +542,10 @@
                         </div>`;
                 });
                 
+                // 🟢 إضافة التوصيل المجاني إلى زر المتابعة داخل السلة 🟢
                 actionButtons.innerHTML = `
                     <button class="clear-cart-btn" onclick="clearFullCart()">🗑️ إفراغ السلة بالكامل</button>
-                    <button class="primary-btn" onclick="proceedToCheckout()">المتابعة للطلب (<span id="modal-total">${formatCurrency(totalQirsh)}</span>)</button>
+                    <button class="primary-btn" onclick="proceedToCheckout()">إتمام الطلب (<span id="modal-total">${formatCurrency(totalQirsh)}</span>) + توصيل مجاني 🛵</button>
                 `;
             }
         }
@@ -652,20 +661,17 @@
         window.openCartModal = () => document.getElementById('cart-modal-overlay').style.display = 'flex';
         window.closeCartModal = () => document.getElementById('cart-modal-overlay').style.display = 'none';
         
-        // 🔴 دوال التحكم بنافذة السلة الفارغة 🔴
         window.openEmptyCartModal = () => document.getElementById('empty-cart-modal-overlay').style.display = 'flex';
         window.closeEmptyCartModal = () => document.getElementById('empty-cart-modal-overlay').style.display = 'none';
 
-        // دالة إغلاق رسالة النجاح
         window.closeSuccessModal = () => document.getElementById('success-modal-overlay').style.display = 'none';
 
         window.closeModalOnBG = (e, id) => { if (e.target.id === id) document.getElementById(id).style.display = 'none'; };
 
         window.proceedToCheckout = function() {
-            // التعديل الجديد لمنع السلة الفارغة بنافذة منبثقة ⬇️
             if(cart.length === 0) {
-                closeCartModal(); // إغلاق السلة إذا كانت مفتوحة
-                openEmptyCartModal(); // إظهار رسالة الخطأ المنبثقة
+                closeCartModal(); 
+                openEmptyCartModal(); 
                 return;
             }
             
@@ -675,7 +681,6 @@
             if(localStorage.getItem('st_loc')) document.getElementById('cust-location').value = localStorage.getItem('st_loc');
         };
 
-        // إرسال الطلب إلى Google Sheets والتليجرام
         window.submitOrder = function(e) {
             e.preventDefault();
             const phone = document.getElementById('cust-phone').value;
@@ -708,7 +713,6 @@
             submitBtn.innerText = "جاري إرسال الطلب... ⏳";
             submitBtn.disabled = true;
 
-            // الرابط النهائي المحمي
             const scriptURL = "https://script.google.com/macros/s/AKfycbx5o1xnh7gQN5-qNT7yC1HGktgw3ca09dGYvM-sHBCkVD8nNTFQ2uS6X0KjcWPc8_ES/exec";
 
             fetch(scriptURL, {
@@ -719,7 +723,6 @@
             .then(response => {
                 playSound('success');
                 
-                // 🟢 إغلاق نافذة الدفع وإظهار نافذة النجاح 🟢
                 closeCheckoutModal();
                 
                 document.getElementById('success-cust-name').innerText = name; 
@@ -727,7 +730,6 @@
                 document.getElementById('success-loc-display').innerText = location;
                 document.getElementById('success-modal-overlay').style.display = 'flex';
                 
-                // إعادة تهيئة المتجر
                 submitBtn.innerText = "تأكيد الطلب النهائي ✅";
                 submitBtn.disabled = false;
                 cart = []; 
