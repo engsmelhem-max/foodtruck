@@ -216,6 +216,15 @@
         @keyframes blink-hint { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
         .cart-total { color: var(--neon-green); font-weight: 900; font-size: 1.1rem; }
+        
+        /* تنسيق جملة التوصيل المجاني */
+        .free-delivery-badge {
+            font-size: 0.8rem;
+            color: var(--neon-pink);
+            display: inline-block;
+            margin-right: 5px;
+        }
+
         .basket-icon { font-size: 2.5rem; position: relative; }
         .cart-badge {
             position: absolute; top: -5px; right: -5px; background: var(--neon-cyan); color: #fff;
@@ -313,7 +322,7 @@
         <div class="cart-info">
             <span class="cart-title">سلة المشتريات</span>
             <span class="checkout-hint">اضغط هنا لإتمام الطلب 👆</span>
-            <span class="cart-total" id="cart-total-display">0 قرش</span>
+            <span class="cart-total"><span id="cart-total-display">0 قرش</span> <span class="free-delivery-badge">(التوصيل مجاني 🛵)</span></span>
         </div>
         <div class="basket-icon">🛒<div class="cart-badge" id="cart-badge">0</div></div>
     </div>
@@ -326,6 +335,7 @@
             </div>
             <div class="cart-items-list" id="cart-items-list"></div>
             <div id="cart-action-buttons">
+                <!-- سيتم تحديث هذا الزر عبر JavaScript -->
                 <button class="primary-btn" onclick="proceedToCheckout()">المتابعة للطلب (<span id="modal-total">0</span>)</button>
             </div>
         </div>
@@ -503,7 +513,7 @@
             
             if (cart.length === 0) {
                 cartList.innerHTML = '<p style="text-align:center; color:#888; margin-top:20px;">السلة فارغة حالياً</p>';
-                actionButtons.innerHTML = `<button class="primary-btn" onclick="proceedToCheckout()">المتابعة للطلب (<span id="modal-total">0 قرش</span>)</button>`;
+                actionButtons.innerHTML = `<button class="primary-btn" onclick="proceedToCheckout()">المتابعة للطلب (<span id="modal-total">0 قرش</span>) + توصيل مجاني 🛵</button>`;
             } else {
                 cart.forEach(item => {
                     const cartIconHTML = isImageFile(item.img) ? `<img src="${item.img}" class="cart-real-img" alt="${item.name}">` : item.img;
@@ -525,7 +535,7 @@
                 
                 actionButtons.innerHTML = `
                     <button class="clear-cart-btn" onclick="clearFullCart()">🗑️ إفراغ السلة بالكامل</button>
-                    <button class="primary-btn" onclick="proceedToCheckout()">المتابعة للطلب (<span id="modal-total">${formatCurrency(totalQirsh)}</span>)</button>
+                    <button class="primary-btn" onclick="proceedToCheckout()">المتابعة للطلب (<span id="modal-total">${formatCurrency(totalQirsh)}</span>) + توصيل مجاني 🛵</button>
                 `;
             }
         }
