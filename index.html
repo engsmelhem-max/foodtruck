@@ -680,7 +680,7 @@
             if(localStorage.getItem('st_loc')) document.getElementById('cust-location').value = localStorage.getItem('st_loc');
         };
 
-        // 🌟 الحل النهائي والآمن 100% (أداء فوري بدون تعليق) 🌟
+        // 🌟 الحل الأسطوري والمبسط تماماً لمنع التعليق نهائياً 🌟
         window.submitOrder = function(e) {
             e.preventDefault();
             const phone = document.getElementById('cust-phone').value;
@@ -688,7 +688,6 @@
 
             const name = document.getElementById('cust-name').value;
             const location = document.getElementById('cust-location').value;
-            const submitBtn = document.querySelector('#checkout-form .primary-btn');
 
             localStorage.setItem('st_name', name);
             localStorage.setItem('st_phone', phone);
@@ -710,33 +709,36 @@
                 orderDetails: orderDetailsText
             };
 
-            submitBtn.innerText = "جاري إرسال الطلب... ⏳";
-            submitBtn.disabled = true;
-
             const scriptURL = "https://script.google.com/macros/s/AKfycbx5o1xnh7gQN5-qNT7yC1HGktgw3ca09dGYvM-sHBCkVD8nNTFQ2uS6X0KjcWPc8_ES/exec";
 
-            // إرسال البيانات بهدوء في الخلفية وإظهار الشاشة الخضراء فوراً خلال نصف ثانية
+            // إرسال صامت عبر fetch بدون انتظار أي استجابة (Fire & Forget حقيقي)
             fetch(scriptURL, {
                 method: 'POST',
                 body: JSON.stringify(orderData),
-                mode: 'no-cors'
-            });
+                mode: 'no-cors',
+                keepalive: true
+            }).catch(() => {});
 
-            setTimeout(() => {
-                playSound('success');
-                closeCheckoutModal();
-                
-                document.getElementById('success-cust-name').innerText = name; 
-                document.getElementById('success-total-price').innerText = totalText;
-                document.getElementById('success-loc-display').innerText = location;
-                document.getElementById('success-modal-overlay').style.display = 'flex';
-                
+            // إغلاق نافذة الطلب وإظهار شاشة النجاح فوراً وبدون أي تعليق
+            closeCheckoutModal();
+            playSound('success');
+            
+            document.getElementById('success-cust-name').innerText = name; 
+            document.getElementById('success-total-price').innerText = totalText;
+            document.getElementById('success-loc-display').innerText = location;
+            document.getElementById('success-modal-overlay').style.display = 'flex';
+            
+            // إعادة ضبط السلة والمتجر
+            cart = []; 
+            clickCounters = {}; 
+            updateCartUI();
+            
+            // إعادة الزر لحالته الطبيعية احتياطياً
+            const submitBtn = document.querySelector('#checkout-form .primary-btn');
+            if(submitBtn) {
                 submitBtn.innerText = "تأكيد الطلب النهائي ✅";
                 submitBtn.disabled = false;
-                cart = []; 
-                clickCounters = {}; 
-                updateCartUI(); 
-            }, 500);
+            }
         };
     </script>
 </body>
