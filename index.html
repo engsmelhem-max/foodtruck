@@ -66,7 +66,7 @@
             background: rgba(255, 255, 255, 0.9); position: relative;
         }
         
-        /* --- Ticker Animation --- */
+        /* --- Ticker Animation (Continuous & Left to Right) --- */
         .ticker-wrap {
             position: absolute;
             bottom: 5px;
@@ -74,21 +74,25 @@
             width: 100%;
             overflow: hidden;
             white-space: nowrap;
-            direction: ltr; /* Ensure physical animation direction */
+            direction: ltr; /* اتجاه الحركة الفيزيائي */
+        }
+        .ticker-move {
+            display: inline-flex;
+            width: fit-content;
+            animation: scroll-left-to-right 45s linear infinite; /* أبطأ بكثير (45 ثانية) ومستمر */
         }
         .ticker-text {
-            display: inline-block;
             white-space: nowrap;
             font-size: 0.85rem;
             font-weight: 700;
             color: var(--neon-green);
             text-shadow: none;
-            animation: scroll-left 20s linear infinite;
-            direction: rtl; /* Keep text reading correctly */
+            direction: rtl; /* للحفاظ على ترتيب الكلام العربي */
+            padding-right: 5px;
         }
-        @keyframes scroll-left {
-            0% { transform: translateX(100vw); }
-            100% { transform: translateX(-100%); }
+        @keyframes scroll-left-to-right {
+            0% { transform: translateX(-50%); } /* يبدأ من النص المخفي باليسار */
+            100% { transform: translateX(0%); } /* يتحرك لليمين */
         }
 
         .quick-nav {
@@ -259,12 +263,17 @@
         <div class="start-sub">🛒 جهّز سلتك 🛒</div>
     </div>
 
-    <!-- علامة التحديث وشريط الأخبار -->
+    <!-- علامة التحديث وشريط الأخبار المتصل -->
     <header>
         🏕️ كرفان الحديقة 🏕️
         <div class="ticker-wrap">
-            <div class="ticker-text">
-                اسعار عادية / توصيل مجاني / توصيل سريع / منتجات امنة / خدمة مميزة / جودة مضمونة / افضل كافتيريا / ازكى الشغلات / خدمة مضمونة / اعتمادية / سرعة بالاداء / خدمة للزبائن / افضل سعر
+            <div class="ticker-move">
+                <div class="ticker-text">
+                    اسعار عادية / توصيل مجاني / توصيل سريع / منتجات امنة / خدمة مميزة / جودة مضمونة / افضل كافتيريا / ازكى الشغلات / خدمة مضمونة / اعتمادية / سرعة بالاداء / خدمة للزبائن / افضل سعر / &nbsp;
+                </div>
+                <div class="ticker-text">
+                    اسعار عادية / توصيل مجاني / توصيل سريع / منتجات امنة / خدمة مميزة / جودة مضمونة / افضل كافتيريا / ازكى الشغلات / خدمة مضمونة / اعتمادية / سرعة بالاداء / خدمة للزبائن / افضل سعر / &nbsp;
+                </div>
             </div>
         </div>
     </header>
